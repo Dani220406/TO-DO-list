@@ -32,29 +32,67 @@ def welcome_screen():
 
 # -------------------------------------------------------------
 
+# Placeholder per funzione "IMPOSTAZIONI"
+
+# -------------------------------------------------------------
+
 # Funzione per creare una nuova lista
 def create_new_list():
-    st.sidebar.subheader("Crea nuova lista")
+    st.sidebar.subheader("➕ Crea nuova lista")
     nome = st.sidebar.text_input("Nome lista")
 
-    if st.sidebar.button("Crea lista"):
+    if st.sidebar.button("Conferma"): # <---- Fare che se lista ha stesso nome di un'altra -> Messaggio: scegliere nome diverso
         if nome:
             st.session_state.my_lists.append({"nome": nome, "dati": []})
             st.rerun()
 
 # -------------------------------------------------------------
 
+# Placeholder per funzione "CANCELLAZIONE LISTA"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "ORDINA LISTE" [Maybe]
+# - Capacità di ordinare le liste semplicemente tenendo premuto su una lista e spostando il cursore
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "CREA CARTELLA" [Maybe]
+# - Capacità di creare cartelle contenenti un insieme di liste create
+
+# -------------------------------------------------------------
+
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):
     st.sidebar.subheader(f"Modifica lista: {nome}")
-    if st.sidebar.button("Torna alle liste"):  #  <----- fare che quando si preme questo, la lista viene automaticamente salvata
+    if st.sidebar.button("⬅️ Torna alle liste"):  #  <----- fare che quando si preme questo, la lista viene automaticamente salvata
         st.session_state.active_list = None
         st.rerun()
-    st.sidebar.button("Aggiungi elemento") # <----- Implementare "Aggiungi Elemento"
-    st.sidebar.button("Elimina elemento") #  <----- Implementare "Elimina Elemento"
-    st.sidebar.button("Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
-    st.sidebar.button("Etichetta")      # <-------- Implementare "Sistema di Etichette"
-    st.sidebar.button("Scarica Lista") # <------ Implementare "Scaricare lista selezionata in una cartella"
+    st.sidebar.button("➕ Aggiungi elemento") # <----- Implementare "Aggiungi Elemento"
+    st.sidebar.button("❌ Elimina elemento") #  <----- Implementare "Elimina Elemento"
+    st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
+    st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
+    st.sidebar.button("📥 Scarica Lista") # <------ Implementare "Scaricare lista selezionata in una cartella"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "AGGIUNGI ELEMENTO"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "ELIMINA ELEMENTO"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "TASK COMPLETATO"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "ETICHETTA"
+
+# -------------------------------------------------------------
+
+# Placeholder per funzione "SCARICA LISTA"
 
 # -------------------------------------------------------------
 
@@ -66,6 +104,7 @@ def show_lists():
         return
 
     CARDS_PER_ROW = 4 # Num. Liste mostrate per riga nella homepage
+    # Potremmo anche mettere un'impostazione che permetta di gestire manualmente il numero di liste per riga
 
     for i in range(0, len(liste), CARDS_PER_ROW):
         row = liste[i:i + CARDS_PER_ROW]
