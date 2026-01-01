@@ -29,7 +29,7 @@ def welcome_screen():
         """,
         unsafe_allow_html=True
     )
-    time.sleep(3)
+    time.sleep(3)  # Per simulare il caricamento dell'app
     st.session_state.vista = "home"
     st.rerun()
 
@@ -40,7 +40,7 @@ def create_new_list():
     st.sidebar.subheader("➕ Crea nuova lista")
     nome = st.sidebar.text_input("Nome lista")
 
-    if st.sidebar.button("✔️ Conferma"):
+    if st.sidebar.button("✔️ Crea lista"):
         if not nome:
             st.sidebar.error("Il nome della lista non può essere vuoto")
             return
@@ -64,13 +64,9 @@ def delete_list():
         return
 
     nomi_liste = [l["nome"] for l in st.session_state.my_lists]
-    lista_da_eliminare = st.sidebar.selectbox(
-        "Seleziona la lista",
-        nomi_liste,
-        key="delete_list_select"
-    )
+    lista_da_eliminare = st.sidebar.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
 
-    if st.sidebar.button("❌ Elimina definitivamente"):
+    if st.sidebar.button("❌ Elimina lista"):
             st.session_state.my_lists = [
                 l for l in st.session_state.my_lists
                 if l["nome"] != lista_da_eliminare
@@ -87,7 +83,7 @@ def create_folder():
 
     nome_cartella = st.sidebar.text_input("Nome cartella")
 
-    if st.sidebar.button("✔️ Salva cartella"):
+    if st.sidebar.button("✔️ Crea cartella"):
         if not nome_cartella:
             st.sidebar.error("Il nome della cartella non può essere vuoto.")
             return
@@ -199,7 +195,6 @@ def sidebar_selected_list(nome):
     st.sidebar.button("❌ Elimina elemento") #  <----- Implementare "Elimina Elemento"
     st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
-    st.sidebar.button("📥 Scarica Lista") # <------ Implementare "Scaricare lista selezionata in una cartella"
 
 # -------------------------------------------------------------
 
@@ -220,9 +215,8 @@ def add_element():
                         lista["dati"].append(nuovo_item)
                         st.rerun()
                     else:
-                        st.error("Il campo è vuoto")
-
-        
+                        st.error("Nessun elemento inserito.")
+       
 # -------------------------------------------------------------
 
 # Placeholder per funzione "ELIMINA ELEMENTO"
@@ -234,10 +228,6 @@ def add_element():
 # -------------------------------------------------------------
 
 # Placeholder per funzione "ETICHETTA"
-
-# -------------------------------------------------------------
-
-# Placeholder per funzione "SCARICA LISTA"
 
 # -------------------------------------------------------------
 
