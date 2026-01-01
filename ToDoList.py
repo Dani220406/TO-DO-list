@@ -48,7 +48,28 @@ def create_new_list():
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "CANCELLAZIONE LISTA"
+# Funzione per cancellare una lista
+def delete_list():
+    st.sidebar.subheader("🗑️ Elimina lista")
+
+    if not st.session_state.my_lists:
+        st.sidebar.info("Nessuna lista da eliminare")
+        return
+
+    nomi_liste = [l["nome"] for l in st.session_state.my_lists]
+    lista_da_eliminare = st.sidebar.selectbox(
+        "Seleziona la lista",
+        nomi_liste,
+        key="delete_list_select"
+    )
+
+    if st.sidebar.button("❌ Elimina definitivamente"):
+            st.session_state.my_lists = [
+                l for l in st.session_state.my_lists
+                if l["nome"] != lista_da_eliminare
+            ]
+            st.sidebar.success(f"Lista '{lista_da_eliminare}' eliminata")
+            st.rerun()
 
 # -------------------------------------------------------------
 
@@ -158,6 +179,7 @@ def home():
         show_selected_list()
     else:
         create_new_list()
+        delete_list()
         show_lists()
 
 # -------------------------------------------------------------
