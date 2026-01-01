@@ -41,8 +41,16 @@ def create_new_list():
     st.sidebar.subheader("➕ Crea nuova lista")
     nome = st.sidebar.text_input("Nome lista")
 
-    if st.sidebar.button("Conferma"): # <---- Fare che se lista ha stesso nome di un'altra -> Messaggio: scegliere nome diverso
-        if nome:
+    if st.sidebar.button("✔️ Conferma"):
+        if not nome:
+            st.sidebar.error("Il nome della lista non può essere vuoto")
+            return
+
+        nomi_esistenti = [l["nome"] for l in st.session_state.my_lists]
+
+        if nome in nomi_esistenti:
+            st.sidebar.warning("Esiste già una lista con questo nome.")
+        else:
             st.session_state.my_lists.append({"nome": nome, "dati": []})
             st.rerun()
 
