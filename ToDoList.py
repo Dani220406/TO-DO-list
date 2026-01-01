@@ -13,9 +13,12 @@ if "my_lists" not in st.session_state:
 if "active_list" not in st.session_state:
     st.session_state.active_list = None
 
+if "folders" not in st.session_state:
+    st.session_state.folders = []
+
 # -------------------------------------------------------------
 
-# Funzione che da il benvenuto all'utente
+# Funzione che da' il benvenuto all'utente
 def welcome_screen():
     st.markdown(
         """
@@ -29,10 +32,6 @@ def welcome_screen():
     time.sleep(3)
     st.session_state.vista = "home"
     st.rerun()
-
-# -------------------------------------------------------------
-
-# Placeholder per funzione "IMPOSTAZIONI"
 
 # -------------------------------------------------------------
 
@@ -51,7 +50,7 @@ def create_new_list():
         if nome in nomi_esistenti:
             st.sidebar.warning("Esiste già una lista con questo nome.")
         else:
-            st.session_state.my_lists.append({"nome": nome, "dati": []})
+            st.session_state.my_lists.append({"nome": nome, "dati": [], "cartella": None})
             st.rerun()
 
 # -------------------------------------------------------------
@@ -81,20 +80,119 @@ def delete_list():
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "ORDINA LISTE" [Maybe]
-# - Capacità di ordinare le liste semplicemente tenendo premuto su una lista e spostando il cursore
+# Funzione per creare una cartella in cui inserire liste
+def create_folder():
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("📁 Crea nuova cartella")
+
+    nome_cartella = st.sidebar.text_input("Nome cartella")
+
+    if st.sidebar.button("✔️ Salva cartella"):
+        if not nome_cartella:
+            st.sidebar.error("Il nome della cartella non può essere vuoto.")
+            return
+
+        if nome_cartella in st.session_state.folders:
+            st.sidebar.warning("Esiste già una cartella con questo nome.")
+            return
+
+        st.session_state.folders.append(nome_cartella)
+        st.rerun()
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "CREA CARTELLA" [Maybe]
-# - Capacità di creare cartelle contenenti un insieme di liste create
+# Funzione per mostrare le cartelle create nella sidebar
+def show_folders_sidebar():
+    if not st.session_state.folders:
+        return
+
+    st.sidebar.subheader("📂 Le mie Cartelle")
+
+    for folder in st.session_state.folders:
+        with st.sidebar.expander(f"{folder}", expanded=False):
+            liste_nella_cartella = [
+                l for l in st.session_state.my_lists
+                if l.get("cartella") == folder
+            ]
+
+            if not liste_nella_cartella:
+                st.caption("Nessuna lista")
+            else:
+                for l in liste_nella_cartella:
+                    if st.button(
+                        l["nome"],
+                        key=f"open_{folder}_{l['nome']}",
+                        use_container_width=True
+                    ):
+                        st.session_state.active_list = l["nome"]
+                        st.rerun()
 
 # -------------------------------------------------------------
+
+# Funzione per gestire le liste nelle cartelle
+def manage_list_folder():
+    if not st.session_state.my_lists or not st.session_state.folders:
+        return
+
+    st.sidebar.subheader("🗂️ Gestione cartelle")
+
+    lista_nome = st.sidebar.selectbox(
+        "Lista",
+        [l["nome"] for l in st.session_state.my_lists],
+        key="manage_list_folder_list"
+    )
+
+    cartella_corrente = next(
+        (l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome),
+        None
+    )
+
+    cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
+    selezione = st.sidebar.selectbox(
+        "Cartella",
+        cartelle_opzioni,
+        index=cartelle_opzioni.index(cartella_corrente)
+        if cartella_corrente in cartelle_opzioni else 0,
+        key="manage_list_folder_select"
+    )
+
+    if st.sidebar.button("🔄 Sposta Lista"):
+        for l in st.session_state.my_lists:
+            if l["nome"] == lista_nome:
+                l["cartella"] = None if selezione == "— Nessuna —" else selezione
+        st.rerun()
+
+# ----------------------------------------------------
+
+# Funzione per cancellare una cartella
+def delete_folder():
+    if not st.session_state.folders:
+        return
+
+    st.sidebar.subheader("🗑️ Elimina cartella")
+
+    cartella = st.sidebar.selectbox(
+        "Seleziona cartella",
+        st.session_state.folders,
+        key="delete_folder_select"
+    )
+
+    if st.sidebar.button("❌ Elimina cartella"):
+        st.session_state.folders.remove(cartella)
+
+        for l in st.session_state.my_lists:
+            if l.get("cartella") == cartella:
+                l["cartella"] = None
+
+        st.sidebar.success(f"Cartella '{cartella}' eliminata")
+        st.rerun()
+
+# ------------------------------------------------------
 
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):
     st.sidebar.subheader(f"Modifica lista: {nome}")
-    if st.sidebar.button("⬅️ Torna alle liste"):  #  <----- fare che quando si preme questo, la lista viene automaticamente salvata
+    if st.sidebar.button("⬅️ Torna alle liste"):
         st.session_state.active_list = None
         st.rerun()
     add_element()
@@ -105,7 +203,7 @@ def sidebar_selected_list(nome):
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "AGGIUNGI ELEMENTO"
+# Funzione per aggiungere un elemento alla lista selezionata
 def add_element():
     nome_lista = st.session_state.active_list
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
@@ -143,7 +241,7 @@ def add_element():
 
 # -------------------------------------------------------------
 
-# Mostrare tutte le liste nella homepage
+# Funzione per mostrare tutte le liste nella homepage
 def show_lists():
     liste = st.session_state.my_lists
     if not liste:
@@ -151,7 +249,6 @@ def show_lists():
         return
 
     CARDS_PER_ROW = 4 # Num. Liste mostrate per riga nella homepage
-    # Potremmo anche mettere un'impostazione che permetta di gestire manualmente il numero di liste per riga
 
     for i in range(0, len(liste), CARDS_PER_ROW):
         row = liste[i:i + CARDS_PER_ROW]
@@ -165,7 +262,7 @@ def show_lists():
 
 # -------------------------------------------------------------
 
-# Mostrare lista selezionata
+# Funzione per mostrare una lista selezionata
 def show_selected_list():
     nome = st.session_state.active_list
     st.markdown(f"## {nome}")
@@ -180,7 +277,7 @@ def show_selected_list():
 
 # -------------------------------------------------------------
 
-# Gestione della Homepage
+# Gestione della Homepage (invocazione funzioni)
 def home():
     if st.session_state.active_list:
         sidebar_selected_list(st.session_state.active_list)
@@ -188,6 +285,10 @@ def home():
     else:
         create_new_list()
         delete_list()
+        create_folder()
+        show_folders_sidebar()
+        manage_list_folder()
+        delete_folder()
         show_lists()
 
 # -------------------------------------------------------------
