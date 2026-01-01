@@ -68,7 +68,7 @@ def sidebar_selected_list(nome):
     if st.sidebar.button("⬅️ Torna alle liste"):  #  <----- fare che quando si preme questo, la lista viene automaticamente salvata
         st.session_state.active_list = None
         st.rerun()
-    st.sidebar.button("➕ Aggiungi elemento") # <----- Implementare "Aggiungi Elemento"
+    add_element()
     st.sidebar.button("❌ Elimina elemento") #  <----- Implementare "Elimina Elemento"
     st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
@@ -77,7 +77,25 @@ def sidebar_selected_list(nome):
 # -------------------------------------------------------------
 
 # Placeholder per funzione "AGGIUNGI ELEMENTO"
+def add_element():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
+    if lista is not None:
+        # Il popover sostituisce il bottone e contiene il form in modo stabile
+        with st.sidebar.popover("➕ Aggiungi elemento", use_container_width=True):
+            with st.form(key="form_aggiunta", clear_on_submit=True):
+                nuovo_item = st.text_input("Cosa vuoi aggiungere?")
+                submit = st.form_submit_button("Conferma")
+                
+                if submit:
+                    if nuovo_item:
+                        lista["dati"].append(nuovo_item)
+                        st.rerun()
+                    else:
+                        st.error("Il campo è vuoto")
+
+        
 # -------------------------------------------------------------
 
 # Placeholder per funzione "ELIMINA ELEMENTO"
