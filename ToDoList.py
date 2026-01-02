@@ -193,7 +193,7 @@ def sidebar_selected_list(nome):
         st.rerun()
     add_element()
     remove_element()
-    st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
+    mark_task_done()
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
 
 # -------------------------------------------------------------
@@ -244,7 +244,26 @@ def remove_element():
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "TASK COMPLETATO"
+def mark_task_done():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if lista and lista["dati"]:
+        st.sidebar.subheader("✅ Segna task completato")
+
+        # Mostra gli elementi non ancora completati
+        options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+        task_selezionato = st.sidebar.selectbox("Seleziona task", options, key="mark_done_select")
+
+        if st.sidebar.button("Segna come completato", key="mark_done_button"):
+            idx = int(task_selezionato.split(".")[0]) - 1
+            # Aggiunge [✔️] davanti all’elemento per segnalarlo come completato
+            lista["dati"][idx] = "✔️ " + lista["dati"][idx]
+            st.success(f"Task '{lista['dati'][idx]}' completato!")
+            st.rerun()
+    else:
+        st.sidebar.info("Lista vuota, niente da completare.")
+
 
 # -------------------------------------------------------------
 
