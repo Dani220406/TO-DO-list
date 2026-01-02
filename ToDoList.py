@@ -251,16 +251,24 @@ def mark_task_done():
     if lista and lista["dati"]:
         st.sidebar.subheader("✅ Segna task completato")
 
-        # Mostra gli elementi non ancora completati
         options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-        task_selezionato = st.sidebar.selectbox("Seleziona task", options, key="mark_done_select")
+        task_selezionato = st.sidebar.selectbox(
+            "Seleziona task",
+            options,
+            key="mark_done_select"
+        )
 
         if st.sidebar.button("Segna come completato", key="mark_done_button"):
             idx = int(task_selezionato.split(".")[0]) - 1
-            # Aggiunge [✔️] davanti all’elemento per segnalarlo come completato
-            lista["dati"][idx] = "✔️ " + lista["dati"][idx]
-            st.success(f"Task '{lista['dati'][idx]}' completato!")
-            st.rerun()
+            task = lista["dati"][idx]
+
+            # 🔒 BLOCCO ANTI-DOPPIA SPUNTA
+            if task.startswith("✔️"):
+                st.warning("Questo task è già completato.")
+            else:
+                lista["dati"][idx] = "✔️ " + task
+                st.success("Task completato!")
+                st.rerun()
     else:
         st.sidebar.info("Lista vuota, niente da completare.")
 
