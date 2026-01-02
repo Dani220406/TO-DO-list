@@ -37,68 +37,82 @@ def welcome_screen():
 
 # Funzione per creare una nuova lista
 def create_new_list():
-    st.sidebar.subheader("➕ Crea nuova lista")
-    nome = st.sidebar.text_input("Nome lista")
+    with st.sidebar.popover("➕ Nuova lista", use_container_width=True):
+        with st.form(key="form_crea_lista", clear_on_submit=True):
+            nome = st.text_input("Nome lista")
+            submit = st.form_submit_button("✔️ Crea lista")
 
-    if st.sidebar.button("✔️ Crea lista"):
-        if not nome:
-            st.sidebar.error("Il nome della lista non può essere vuoto")
-            return
+            if submit:
+                if not nome:
+                    st.error("Il nome della lista non può essere vuoto")
+                    return
 
-        nomi_esistenti = [l["nome"] for l in st.session_state.my_lists]
+                nomi_esistenti = [l["nome"] for l in st.session_state.my_lists]
 
-        if nome in nomi_esistenti:
-            st.sidebar.warning("Esiste già una lista con questo nome.")
-        else:
-            st.session_state.my_lists.append({"nome": nome, "dati": [], "cartella": None})
-            st.rerun()
+                if nome in nomi_esistenti:
+                    st.warning("Esiste già una lista con questo nome.")
+                else:
+                    st.session_state.my_lists.append(
+                        {"nome": nome, "dati": [], "cartella": None}
+                    )
+                    st.rerun()
 
 # -------------------------------------------------------------
 
 # Funzione per cancellare una lista
 def delete_list():
-    st.sidebar.subheader("🗑️ Elimina lista")
-
     if not st.session_state.my_lists:
         st.sidebar.info("Nessuna lista da eliminare")
         return
 
-    nomi_liste = [l["nome"] for l in st.session_state.my_lists]
-    lista_da_eliminare = st.sidebar.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
+    with st.sidebar.popover("🗑️ Elimina lista", use_container_width=True):
+        with st.form(key="form_elimina_lista"):
+            nomi_liste = [l["nome"] for l in st.session_state.my_lists]
+            lista_da_eliminare = st.selectbox(
+                "Seleziona lista",
+                nomi_liste,
+                key="delete_list_select"
+            )
 
-    if st.sidebar.button("❌ Elimina lista"):
-            st.session_state.my_lists = [
-                l for l in st.session_state.my_lists
-                if l["nome"] != lista_da_eliminare
-            ]
-            st.sidebar.success(f"Lista '{lista_da_eliminare}' eliminata")
-            st.rerun()
+            submit = st.form_submit_button("❌ Elimina definitivamente")
+
+            if submit:
+                st.session_state.my_lists = [
+                    l for l in st.session_state.my_lists
+                    if l["nome"] != lista_da_eliminare
+                ]
+                st.success(f"Lista '{lista_da_eliminare}' eliminata")
+                st.rerun()
 
 # -------------------------------------------------------------
 
 # Funzione per creare una cartella in cui inserire liste
 def create_folder():
     st.sidebar.markdown("---")
-    st.sidebar.subheader("📁 Crea nuova cartella")
 
-    nome_cartella = st.sidebar.text_input("Nome cartella")
+    with st.sidebar.popover("📁 Crea nuova cartella", use_container_width=True):
+        with st.form(key="form_crea_cartella", clear_on_submit=True):
+            nome_cartella = st.text_input("Nome cartella")
+            submit = st.form_submit_button("✔️ Crea cartella")
 
-    if st.sidebar.button("✔️ Crea cartella"):
-        if not nome_cartella:
-            st.sidebar.error("Il nome della cartella non può essere vuoto.")
-            return
+            if submit:
+                if not nome_cartella:
+                    st.error("Il nome della cartella non può essere vuoto.")
+                    return
 
-        if nome_cartella in st.session_state.folders:
-            st.sidebar.warning("Esiste già una cartella con questo nome.")
-            return
+                if nome_cartella in st.session_state.folders:
+                    st.warning("Esiste già una cartella con questo nome.")
+                    return
 
-        st.session_state.folders.append(nome_cartella)
-        st.rerun()
+                st.session_state.folders.append(nome_cartella)
+                st.success(f"Cartella '{nome_cartella}' creata")
+                st.rerun()
 
 # -------------------------------------------------------------
 
 # Funzione per mostrare le cartelle create nella sidebar
 def show_folders_sidebar():
+    st.sidebar.markdown("---")
     if not st.session_state.folders:
         return
 
@@ -130,33 +144,35 @@ def manage_list_folder():
     if not st.session_state.my_lists or not st.session_state.folders:
         return
 
-    st.sidebar.subheader("🗂️ Gestione cartelle")
+    with st.sidebar.popover("🗂️ Gestisci cartelle", use_container_width=True):
+        with st.form(key="form_manage_list_folder"):
+            lista_nome = st.selectbox(
+                "Lista",
+                [l["nome"] for l in st.session_state.my_lists]
+            )
 
-    lista_nome = st.sidebar.selectbox(
-        "Lista",
-        [l["nome"] for l in st.session_state.my_lists],
-        key="manage_list_folder_list"
-    )
+            cartella_corrente = next(
+                (l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome),
+                None
+            )
 
-    cartella_corrente = next(
-        (l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome),
-        None
-    )
+            cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
 
-    cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
-    selezione = st.sidebar.selectbox(
-        "Cartella",
-        cartelle_opzioni,
-        index=cartelle_opzioni.index(cartella_corrente)
-        if cartella_corrente in cartelle_opzioni else 0,
-        key="manage_list_folder_select"
-    )
+            selezione = st.selectbox(
+                "Cartella",
+                cartelle_opzioni,
+                index=cartelle_opzioni.index(cartella_corrente)
+                if cartella_corrente in cartelle_opzioni else 0
+            )
 
-    if st.sidebar.button("🔄 Sposta Lista"):
-        for l in st.session_state.my_lists:
-            if l["nome"] == lista_nome:
-                l["cartella"] = None if selezione == "— Nessuna —" else selezione
-        st.rerun()
+            submit = st.form_submit_button("🔄 Sposta lista")
+
+            if submit:
+                for l in st.session_state.my_lists:
+                    if l["nome"] == lista_nome:
+                        l["cartella"] = None if selezione == "— Nessuna —" else selezione
+                        break
+                st.rerun()
 
 # ----------------------------------------------------
 
@@ -165,41 +181,42 @@ def delete_folder():
     if not st.session_state.folders:
         return
 
-    st.sidebar.subheader("🗑️ Elimina cartella")
+    with st.sidebar.popover("🗑️ Elimina cartella", use_container_width=True):
+        cartella = st.selectbox(
+            "Seleziona cartella",
+            st.session_state.folders,
+            key="delete_folder_select"
+        )
 
-    cartella = st.sidebar.selectbox(
-        "Seleziona cartella",
-        st.session_state.folders,
-        key="delete_folder_select"
-    )
+        st.warning("⚠️ Le liste contenute nella cartella non verranno eliminate")
 
-    if st.sidebar.button("❌ Elimina cartella"):
-        st.session_state.folders.remove(cartella)
+        if st.button("❌ Elimina cartella", use_container_width=True):
+            st.session_state.folders.remove(cartella)
 
-        for l in st.session_state.my_lists:
-            if l.get("cartella") == cartella:
-                l["cartella"] = None
+            for l in st.session_state.my_lists:
+                if l.get("cartella") == cartella:
+                    l["cartella"] = None
 
-        st.sidebar.success(f"Cartella '{cartella}' eliminata")
-        st.rerun()
+            st.success(f"Cartella '{cartella}' eliminata")
+            st.rerun()
 
 # ------------------------------------------------------
 
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):
-    st.sidebar.subheader(f"Modifica lista: {nome}")
     if st.sidebar.button("⬅️ Torna alle liste"):
         st.session_state.active_list = None
         st.rerun()
     add_element()
-    st.sidebar.button("❌ Elimina elemento") #  <----- Implementare "Elimina Elemento"
-    st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
+    remove_element()
+    mark_task_done()
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
 
 # -------------------------------------------------------------
 
 # Funzione per aggiungere un elemento alla lista selezionata
 def add_element():
+    st.sidebar.markdown("---")
     nome_lista = st.session_state.active_list
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
@@ -219,11 +236,60 @@ def add_element():
        
 # -------------------------------------------------------------
 
-# Placeholder per funzione "ELIMINA ELEMENTO"
+# Funzione che rimuove un elemento dalla lista
+def remove_element():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if lista and lista["dati"]:
+        with st.sidebar.popover("❌ Rimuovi elemento", use_container_width=True):
+            with st.form(key="form_rimozione", clear_on_submit=True):
+                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+                elemento_da_rimuovere = st.selectbox(
+                    "Seleziona elemento da rimuovere",
+                    options
+                )
+
+                submit = st.form_submit_button("Rimuovi")
+
+                if submit:
+                    idx = int(elemento_da_rimuovere.split(".")[0]) - 1
+                    lista["dati"].pop(idx)
+                    st.rerun()
+    else:
+        st.sidebar.info("Lista vuota, niente da rimuovere.")
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "TASK COMPLETATO"
+# Funzione che segna un elemento della lista come completato
+def mark_task_done():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if lista and lista["dati"]:
+        with st.sidebar.popover("✅ Segna task completato", use_container_width=True):
+            with st.form(key="form_mark_done", clear_on_submit=True):
+                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+                task_selezionato = st.selectbox(
+                    "Seleziona task",
+                    options
+                )
+
+                submit = st.form_submit_button("Conferma")
+
+                if submit:
+                    idx = int(task_selezionato.split(".")[0]) - 1
+                    task = lista["dati"][idx]
+
+                    # Toggle completato / non completato
+                    if task.startswith("✔️"):
+                        lista["dati"][idx] = task.replace("✔️ ", "", 1)
+                    else:
+                        lista["dati"][idx] = "✔️ " + task
+
+                    st.rerun()
+    else:
+        st.sidebar.info("Lista vuota, niente da completare.")
 
 # -------------------------------------------------------------
 
@@ -276,9 +342,9 @@ def home():
         create_new_list()
         delete_list()
         create_folder()
-        show_folders_sidebar()
         manage_list_folder()
         delete_folder()
+        show_folders_sidebar()
         show_lists()
 
 # -------------------------------------------------------------
