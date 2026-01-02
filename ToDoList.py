@@ -192,8 +192,8 @@ def sidebar_selected_list(nome):
         st.session_state.active_list = None
         st.rerun()
     add_element()
-    st.sidebar.button("❌ Elimina elemento") #  <----- Implementare "Elimina Elemento"
-    st.sidebar.button("✅ Task Completato") #  <------ Implementare "Segnare un elemento della lista come completato"
+    remove_element()
+    mark_task_done()
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
 
 # -------------------------------------------------------------
@@ -220,10 +220,58 @@ def add_element():
 # -------------------------------------------------------------
 
 # Placeholder per funzione "ELIMINA ELEMENTO"
+def remove_element():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista),None)
+
+    if lista and lista["dati"]:
+        st.sidebar.subheader("❌ Rimuovi elemento")
+
+        # Lista delle opzioni numerate
+        options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+
+        # Selectbox per scegliere l'elemento da rimuovere
+        elemento_da_rimuovere = st.sidebar.selectbox("Seleziona elemento da rimuovere", options)
+        
+        # Bottone per rimuovere l'elemento selezionato
+        if st.sidebar.button("Rimuovi elemento", key="remove_element_button"):
+            idx = int(elemento_da_rimuovere.split(".")[0]) - 1  # calcola indice
+            rimosso = lista["dati"].pop(idx)
+            st.success(f"Elemento '{rimosso}' rimosso!")
+            st.rerun()
+    else:
+        st.sidebar.info("La lista è vuota, niente da rimuovere.")
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "TASK COMPLETATO"
+def mark_task_done():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if lista and lista["dati"]:
+        st.sidebar.subheader("✅ Segna task completato")
+
+        options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+        task_selezionato = st.sidebar.selectbox(
+            "Seleziona task",
+            options,
+            key="mark_done_select"
+        )
+
+        if st.sidebar.button("Segna come completato", key="mark_done_button"):
+            idx = int(task_selezionato.split(".")[0]) - 1
+            task = lista["dati"][idx]
+
+            # 🔒 BLOCCO ANTI-DOPPIA SPUNTA
+            if task.startswith("✔️"):
+                st.warning("Questo task è già completato.")
+            else:
+                lista["dati"][idx] = "✔️ " + task
+                st.success("Task completato!")
+                st.rerun()
+    else:
+        st.sidebar.info("Lista vuota, niente da completare.")
+
 
 # -------------------------------------------------------------
 
