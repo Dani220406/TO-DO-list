@@ -98,10 +98,7 @@ def delete_list():
             submit = st.form_submit_button("❌ Elimina definitivamente")
 
             if submit:
-                st.session_state.my_lists = [
-                    l for l in st.session_state.my_lists
-                    if l["nome"] != lista_da_eliminare
-                ]
+                st.session_state.my_lists = [l for l in st.session_state.my_lists if l["nome"] != lista_da_eliminare]
                 st.success(f"Lista '{lista_da_eliminare}' eliminata")
                 st.rerun()
 
@@ -110,7 +107,6 @@ def delete_list():
 # Funzione per creare una cartella in cui inserire liste
 def create_folder():
     st.sidebar.markdown("---")
-
     with st.sidebar.popover("📁 Crea nuova cartella", use_container_width=True):
         with st.form(key="form_crea_cartella", clear_on_submit=True):
             nome_cartella = st.text_input("Nome cartella")
@@ -141,20 +137,13 @@ def show_folders_sidebar():
 
     for folder in st.session_state.folders:
         with st.sidebar.expander(f"{folder}", expanded=False):
-            liste_nella_cartella = [
-                l for l in st.session_state.my_lists
-                if l.get("cartella") == folder
-            ]
+            liste_nella_cartella = [l for l in st.session_state.my_lists if l.get("cartella") == folder]
 
             if not liste_nella_cartella:
                 st.caption("Nessuna lista")
             else:
                 for l in liste_nella_cartella:
-                    if st.button(
-                        l["nome"],
-                        key=f"open_{folder}_{l['nome']}",
-                        use_container_width=True
-                    ):
+                    if st.button(l["nome"], key=f"open_{folder}_{l['nome']}", use_container_width=True):
                         st.session_state.active_list = l["nome"]
                         st.rerun()
 
@@ -167,24 +156,13 @@ def manage_list_folder():
 
     with st.sidebar.popover("🗂️ Gestisci cartelle", use_container_width=True):
         with st.form(key="form_manage_list_folder"):
-            lista_nome = st.selectbox(
-                "Lista",
-                [l["nome"] for l in st.session_state.my_lists]
-            )
+            lista_nome = st.selectbox("Lista", [l["nome"] for l in st.session_state.my_lists])
 
-            cartella_corrente = next(
-                (l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome),
-                None
-            )
-
+            cartella_corrente = next((l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome), None)
             cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
 
-            selezione = st.selectbox(
-                "Cartella",
-                cartelle_opzioni,
-                index=cartelle_opzioni.index(cartella_corrente)
-                if cartella_corrente in cartelle_opzioni else 0
-            )
+            selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente)
+                                     if cartella_corrente in cartelle_opzioni else 0)
 
             submit = st.form_submit_button("🔄 Sposta lista")
 
@@ -203,11 +181,7 @@ def delete_folder():
         return
 
     with st.sidebar.popover("🗑️ Elimina cartella", use_container_width=True):
-        cartella = st.selectbox(
-            "Seleziona cartella",
-            st.session_state.folders,
-            key="delete_folder_select"
-        )
+        cartella = st.selectbox("Seleziona cartella", st.session_state.folders, key="delete_folder_select")
 
         st.warning("Le liste contenute nella cartella non verranno eliminate")
 
@@ -242,7 +216,6 @@ def add_element():
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
     if lista is not None:
-        # Il popover sostituisce il bottone e contiene il form in modo stabile
         with st.sidebar.popover("➕ Aggiungi elemento", use_container_width=True):
             with st.form(key="form_aggiunta", clear_on_submit=True):
                 nuovo_item = st.text_input("Cosa vuoi aggiungere?")
@@ -266,10 +239,7 @@ def remove_element():
         with st.sidebar.popover("❌ Rimuovi elemento", use_container_width=True):
             with st.form(key="form_rimozione", clear_on_submit=True):
                 options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-                elemento_da_rimuovere = st.selectbox(
-                    "Seleziona elemento da rimuovere",
-                    options
-                )
+                elemento_da_rimuovere = st.selectbox("Seleziona elemento da rimuovere", options)
 
                 submit = st.form_submit_button("Rimuovi")
 
@@ -294,14 +264,12 @@ def mark_task_done():
                 task_selezionato = st.selectbox("Seleziona task", options)
 
                 st.warning("Confermare un task già completato riumoverà il checkmark")
-
                 submit = st.form_submit_button("Conferma")
 
                 if submit:
                     idx = int(task_selezionato.split(".")[0]) - 1
                     task = lista["dati"][idx]
 
-                    # Toggle completato / non completato
                     if task.startswith("✔️"):
                         lista["dati"][idx] = task.replace("✔️ ", "", 1)
                     else:
