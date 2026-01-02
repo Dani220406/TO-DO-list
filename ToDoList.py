@@ -35,6 +35,33 @@ def welcome_screen():
 
 # -------------------------------------------------------------
 
+# Pulsante che mostra le Istruzioni d'uso
+def info():
+    with st.sidebar.expander("ℹ️ Info", expanded=False):
+        st.markdown("""
+        *Puoi ingrandire la dimensione della sidebar con drag del mouse*
+                
+        **HOMEPAGE**
+        - **Crea nuova lista**: Crea una nuova TO-DO list inserendone il nome.
+        - **Elimina lista**: Elimina la TO-DO list selezionata.
+        - **Crea nuova cartella**: Crea una nuova cartella inserendone il nome.
+        - **Le mie cartelle**: Visualizza le cartelle create con le relative liste inserite al loro interno.
+        - **Gestione cartelle**: Sposta una lista nella cartella selezionata.
+        - **Elimina cartella**: Permette di eliminare la cartella selezionata senza cancellarne le liste contenute.
+
+        **LIST-PAGE**
+        - **Torna alle liste**: Salva le modifiche applicate alla lista e tornare alla homepage.
+        - **Aggiungi elemento**: Aggiunge un nuovo elemento nella lista inserendone il nome.
+        - **Elimina elemento**: Eliminare un elemento selezionato.
+        - **Task completato**: Segna un elemento nella lista come completato.
+        - **Etichetta**: Attribuisce un'etichetta ad un elemento per specificarne la priorità rispetto agli altri.
+
+        Buon Lavoro 😊! 
+        """)
+    st.sidebar.markdown("---")
+
+# -------------------------------------------------------------
+
 # Funzione per creare una nuova lista
 def create_new_list():
     with st.sidebar.popover("➕ Nuova lista", use_container_width=True):
@@ -52,9 +79,7 @@ def create_new_list():
                 if nome in nomi_esistenti:
                     st.warning("Esiste già una lista con questo nome.")
                 else:
-                    st.session_state.my_lists.append(
-                        {"nome": nome, "dati": [], "cartella": None}
-                    )
+                    st.session_state.my_lists.append({"nome": nome, "dati": [], "cartella": None})
                     st.rerun()
 
 # -------------------------------------------------------------
@@ -68,11 +93,7 @@ def delete_list():
     with st.sidebar.popover("🗑️ Elimina lista", use_container_width=True):
         with st.form(key="form_elimina_lista"):
             nomi_liste = [l["nome"] for l in st.session_state.my_lists]
-            lista_da_eliminare = st.selectbox(
-                "Seleziona lista",
-                nomi_liste,
-                key="delete_list_select"
-            )
+            lista_da_eliminare = st.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
 
             submit = st.form_submit_button("❌ Elimina definitivamente")
 
@@ -188,7 +209,7 @@ def delete_folder():
             key="delete_folder_select"
         )
 
-        st.warning("⚠️ Le liste contenute nella cartella non verranno eliminate")
+        st.warning("Le liste contenute nella cartella non verranno eliminate")
 
         if st.button("❌ Elimina cartella", use_container_width=True):
             st.session_state.folders.remove(cartella)
@@ -204,7 +225,7 @@ def delete_folder():
 
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):
-    if st.sidebar.button("⬅️ Torna alle liste"):
+    if st.sidebar.button("⬅️ Torna alla Homepage"):
         st.session_state.active_list = None
         st.rerun()
     add_element()
@@ -270,10 +291,9 @@ def mark_task_done():
         with st.sidebar.popover("✅ Segna task completato", use_container_width=True):
             with st.form(key="form_mark_done", clear_on_submit=True):
                 options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-                task_selezionato = st.selectbox(
-                    "Seleziona task",
-                    options
-                )
+                task_selezionato = st.selectbox("Seleziona task", options)
+
+                st.warning("Confermare un task già completato riumoverà il checkmark")
 
                 submit = st.form_submit_button("Conferma")
 
@@ -336,9 +356,11 @@ def show_selected_list():
 # Gestione della Homepage (invocazione funzioni)
 def home():
     if st.session_state.active_list:
+        info()
         sidebar_selected_list(st.session_state.active_list)
         show_selected_list()
     else:
+        info()
         create_new_list()
         delete_list()
         create_folder()
