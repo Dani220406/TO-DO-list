@@ -11,7 +11,7 @@ def add_element():
         with st.sidebar.popover("➕ Aggiungi elemento", use_container_width=True):
             with st.form(key="form_aggiunta", clear_on_submit=True):
                 nuovo_item = st.text_input("Cosa vuoi aggiungere?")
-                submit = st.form_submit_button("Conferma")
+                submit = st.form_submit_button("Aggiungi")
                 
                 if submit:
                     if nuovo_item:
@@ -56,7 +56,7 @@ def mark_task_done():
                 task_selezionato = st.selectbox("Seleziona task", options)
 
                 st.warning("Confermare un task già completato riumoverà il checkmark")
-                submit = st.form_submit_button("Conferma")
+                submit = st.form_submit_button("Completato")
 
                 if submit:
                     idx = int(task_selezionato.split(".")[0]) - 1
@@ -129,7 +129,7 @@ def edit_text():
         current = parse_styled_text(lista["dati"][idx])
         new_text = st.text_area("Modifica testo", value=current["text"], key=f"edit_text_input_{idx}")
 
-        if st.button("Salva testo", key=f"save_text_{idx}"):
+        if st.button("Modifica", key=f"save_text_{idx}"):
             updated = {"text": new_text, "bold": current["bold"], "italic": current["italic"], "color": current["color"]}
             lista["dati"][idx] = build_styled_text(updated)
             st.rerun()
