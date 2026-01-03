@@ -6,7 +6,7 @@ def create_folder():
     with st.sidebar.popover("📁 Crea nuova cartella", use_container_width=True):
         with st.form(key="form_crea_cartella", clear_on_submit=True):
             nome_cartella = st.text_input("Nome cartella")
-            submit = st.form_submit_button("✔️ Crea cartella")
+            submit = st.form_submit_button("Crea Cartella")
 
             if submit:
                 if not nome_cartella:
@@ -54,7 +54,7 @@ def manage_list_folder():
             cartella_corrente = next((l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome), None)
             cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
             selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente) if cartella_corrente in cartelle_opzioni else 0, key="manage_folder_select")
-            submit = st.form_submit_button("🔄 Sposta lista")
+            submit = st.form_submit_button("Sposta Lista")
 
             if submit:
                 for l in st.session_state.my_lists:
@@ -73,7 +73,7 @@ def delete_folder():
     with st.sidebar.popover("🗑️ Elimina cartella", use_container_width=True):
         cartella = st.selectbox("Seleziona cartella", st.session_state.folders, key="delete_folder_select")
         st.warning("Le liste contenute nella cartella non verranno eliminate")
-        if st.button("❌ Elimina cartella", use_container_width=True):
+        if st.button("Elimina Cartella", use_container_width=True):
             st.session_state.folders.remove(cartella)
 
             for l in st.session_state.my_lists:

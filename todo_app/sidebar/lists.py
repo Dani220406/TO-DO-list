@@ -6,7 +6,7 @@ def create_new_list():
     with st.sidebar.popover("➕ Nuova lista", use_container_width=True):
         with st.form(key="form_crea_lista", clear_on_submit=True):
             nome = st.text_input("Nome lista")
-            submit = st.form_submit_button("✔️ Crea lista")
+            submit = st.form_submit_button("Crea Lista")
 
             if submit:
                 if not nome:
@@ -33,7 +33,7 @@ def delete_list():
         with st.form(key="form_elimina_lista"):
             nomi_liste = [l["nome"] for l in st.session_state.my_lists]
             lista_da_eliminare = st.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
-            submit = st.form_submit_button("❌ Elimina definitivamente")
+            submit = st.form_submit_button("Elimina Lista")
 
             if submit:
                 st.session_state.my_lists = [l for l in st.session_state.my_lists if l["nome"] != lista_da_eliminare]
