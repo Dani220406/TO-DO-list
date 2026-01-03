@@ -1,3 +1,5 @@
+import streamlit as st
+
 # Funzione per tenere traccia delle modifiche applicate al testo
 def parse_styled_text(s):
     color = None
@@ -39,9 +41,12 @@ def toggle_prefix_emoji(task, emoji):
     parsed = parse_styled_text(task)
     text = parsed["text"]
 
-    if text.startswith(f"{emoji} "):
-        text = text.replace(f"{emoji} ", "", 1)
-    else:
-        text = f"{emoji} {text}"
+    words = text.split()
+    words = [w for w in words if w != emoji]
 
+    if emoji not in text:
+        words.insert(0, emoji)
+
+    text = " ".join(words)
+    
     return build_styled_text({"text": text, "bold": parsed["bold"], "italic": parsed["italic"], "color": parsed["color"]})
