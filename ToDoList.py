@@ -162,7 +162,7 @@ def manage_list_folder():
             cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
 
             selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente)
-                                     if cartella_corrente in cartelle_opzioni else 0)
+                                     if cartella_corrente in cartelle_opzioni else 0, key="manage_folder_select")
 
             submit = st.form_submit_button("🔄 Sposta lista")
 
@@ -206,6 +206,7 @@ def sidebar_selected_list(nome):
     remove_element()
     mark_task_done()
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
+    edit_style()
 
 # -------------------------------------------------------------
 
@@ -285,6 +286,68 @@ def mark_task_done():
 
 # -------------------------------------------------------------
 
+#Funzione per applicare modifiche al testo di un elemento della lista
+def edit_style():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if not lista or not lista["dati"]:
+        st.sidebar.info("Nessun elemento da modificare")
+        return
+
+    with st.sidebar.popover("✏️ Modifica Stile", use_container_width=True):
+        with st.form("form_style"):
+            scelta = st.selectbox(
+                "Elemento",
+                [f"{i+1}. {item}" for i, item in enumerate(lista["dati"])],
+                key="style_element_select"
+            )
+
+            idx = int(scelta.split(".")[0]) - 1
+            testo_originale = lista["dati"][idx]
+            testo = testo_originale
+            colore = None
+
+            if testo.startswith(":") and "[" in testo and testo.endswith("]"):
+                colore = testo[1:].split("[", 1)[0]
+                testo = testo.split("[", 1)[1][:-1]
+
+            bold_prev = testo.startswith("**") and testo.endswith("**")
+            italic_prev = testo.startswith("*") and testo.endswith("*") and not bold_prev
+
+            if bold_prev:
+                testo = testo[2:-2]
+            if italic_prev:
+                testo = testo[1:-1]
+
+            bold_now = st.checkbox("Grassetto", value=bold_prev, key="style_bold_checkbox")
+            italic_now = st.checkbox("Corsivo", value=italic_prev, key="style_italic_checkbox")
+
+            colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
+            colore_now = st.selectbox(
+                "Colore",
+                colori,
+                index=colori.index(colore) if colore in colori else 0,
+                key="style_color_select"
+            )
+
+            submit = st.form_submit_button("Applica")
+
+            if submit:
+                nuovo = testo
+
+                if bold_now:
+                    nuovo = f"**{nuovo}**"
+                if italic_now:
+                    nuovo = f"*{nuovo}*"
+                if colore_now != "nessuno":
+                    nuovo = f":{colore_now}[{nuovo}]"
+
+                lista["dati"][idx] = nuovo
+                st.rerun()
+
+# -------------------------------------------------------------
+
 # Funzione per mostrare tutte le liste nella homepage
 def show_lists():
     liste = st.session_state.my_lists
@@ -315,7 +378,7 @@ def show_selected_list():
     if lista:
         if lista["dati"]:
             for idx, item in enumerate(lista["dati"], 1):
-                st.write(f"{idx}. {item}")
+                st.markdown(f"{idx}. {item}")
         else:
             st.info("Lista vuota, aggiungi un nuovo elemento.")
 
