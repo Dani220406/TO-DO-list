@@ -31,3 +31,17 @@ def build_styled_text(d):
     if d.get("color") and d["color"] != "nessuno":
         t = f":{d['color']}[{t}]"
     return t
+
+# -------------------------------------------------------------
+
+# Funzione per gestire conflitto emoji e caratteri *
+def toggle_prefix_emoji(task, emoji):
+    parsed = parse_styled_text(task)
+    text = parsed["text"]
+
+    if text.startswith(f"{emoji} "):
+        text = text.replace(f"{emoji} ", "", 1)
+    else:
+        text = f"{emoji} {text}"
+
+    return build_styled_text({"text": text, "bold": parsed["bold"], "italic": parsed["italic"], "color": parsed["color"]})

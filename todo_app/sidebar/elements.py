@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import parse_styled_text, build_styled_text
+from utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
 
 # Funzione per aggiungere un elemento alla lista selezionata
 def add_element():
@@ -26,20 +26,19 @@ def remove_element():
     nome_lista = st.session_state.active_list
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
-    if lista and lista["dati"]:
-        with st.sidebar.popover("❌ Rimuovi elemento", use_container_width=True):
-            with st.form(key="form_rimozione", clear_on_submit=True):
-                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-                elemento_da_rimuovere = st.selectbox("Seleziona elemento da rimuovere", options)
+    if not lista or not lista["dati"]:
+        return
 
-                submit = st.form_submit_button("Rimuovi")
+    with st.sidebar.popover("❌ Rimuovi elemento", use_container_width=True):
+        with st.form(key="form_rimozione", clear_on_submit=True):
 
-                if submit:
-                    idx = int(elemento_da_rimuovere.split(".")[0]) - 1
-                    lista["dati"].pop(idx)
-                    st.rerun()
-    else:
-        st.sidebar.info("Lista vuota, niente da rimuovere.")
+            elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
+
+            scelta, idx = st.selectbox("Seleziona elemento da rimuovere", elementi, format_func=lambda x: x[0])
+
+            if st.form_submit_button("Rimuovi"):
+                lista["dati"].pop(idx)
+                st.rerun()
 
 # -------------------------------------------------------------
 
@@ -48,54 +47,38 @@ def mark_task_done():
     nome_lista = st.session_state.active_list
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
-    if lista and lista["dati"]:
-        with st.sidebar.popover("✅ Segna task completato", use_container_width=True):
-            with st.form(key="form_mark_done", clear_on_submit=True):
-                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-                task_selezionato = st.selectbox("Seleziona task", options)
+    if not lista or not lista["dati"]:
+        return
 
-                st.warning("Confermare un task già completato riumoverà il checkmark")
-                submit = st.form_submit_button("Completato")
+    with st.sidebar.popover("✅ Segna task completato", use_container_width=True):
+        with st.form(key="form_mark_done", clear_on_submit=True):
+            elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
+            scelta, idx = st.selectbox("Seleziona task", elementi, format_func=lambda x: x[0])
+            st.warning("Confermare un task già completato rimuoverà il checkmark")
 
-                if submit:
-                    idx = int(task_selezionato.split(".")[0]) - 1
-                    task = lista["dati"][idx]
-
-                    if task.startswith("✔️"):
-                        lista["dati"][idx] = task.replace("✔️ ", "", 1)
-                    else:
-                        lista["dati"][idx] = "✔️ " + task
-
-                    st.rerun()
-    else:
-        st.sidebar.info("Lista vuota, niente da completare.")
+            if st.form_submit_button("Completato"):
+                lista["dati"][idx] = toggle_prefix_emoji(lista["dati"][idx], "✔️")
+                st.rerun()
 
 # -------------------------------------------------------------
 
+# Funzione per "etichettare" un elemento
 def priority_element():
     nome_lista = st.session_state.active_list
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
     if not lista or not lista["dati"]:
-        st.sidebar.info("Nessun elemento da etichettare")
         return
-    with st.sidebar.popover("🏷️ Etichetta",use_container_width=True):
+
+    with st.sidebar.popover("🏷️ Etichetta", use_container_width=True):
         with st.form(key="form_etichetta", clear_on_submit=True):
-                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
-                elemento_da_etichettare = st.selectbox("Seleziona elemento da etichettare", options)
+            elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
+            scelta, idx = st.selectbox("Seleziona elemento", elementi, format_func=lambda x: x[0])
+            st.warning("Etichettare un task già etichettato rimuoverà l'etichetta")
 
-                submit = st.form_submit_button("Etichetta")
-
-                st.warning("Etichettare un task già etichettato riumoverà l'etichetta")
-
-                if submit:
-                    idx = int(elemento_da_etichettare.split(".")[0]) - 1
-                    task = lista["dati"][idx]
-
-                    if task.startswith("🏷️"):
-                        lista["dati"][idx] = task.replace("🏷️ ", "", 1)
-                    else:
-                        lista["dati"][idx] = "🏷️ " + task
-                    st.rerun()
+            if st.form_submit_button("Etichetta"):
+                lista["dati"][idx] = toggle_prefix_emoji(lista["dati"][idx], "🏷️")
+                st.rerun()
 
 # -------------------------------------------------------------
 
@@ -105,7 +88,6 @@ def edit_style():
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
-        st.sidebar.info("Nessun elemento da modificare")
         return
 
     if "style_element_idx" not in st.session_state:
@@ -113,7 +95,6 @@ def edit_style():
 
     with st.sidebar.popover("✏️ Modifica Stile", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
-
         scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
@@ -137,7 +118,6 @@ def edit_text():
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
-        st.sidebar.info("Nessun elemento da modificare")
         return
 
     if "edit_element_idx" not in st.session_state:
@@ -145,7 +125,6 @@ def edit_text():
 
     with st.sidebar.popover("📝 Modifica elemento", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
-
         scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
         st.session_state.edit_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
@@ -164,7 +143,6 @@ def reorder_elements():
     lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
-        st.sidebar.info("Nessun elemento da ordinare")
         return
 
     if "reorder_idx" not in st.session_state:
@@ -172,7 +150,6 @@ def reorder_elements():
 
     with st.sidebar.popover("🔀 Ordina elementi", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
-
         scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi, index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
         st.session_state.reorder_idx = idx
 

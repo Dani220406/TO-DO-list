@@ -26,7 +26,6 @@ def create_new_list():
 # Funzione per cancellare una lista
 def delete_list():
     if not st.session_state.my_lists:
-        st.sidebar.info("Nessuna lista da eliminare")
         return
 
     with st.sidebar.popover("🗑️ Elimina lista", use_container_width=True):
