@@ -1,5 +1,5 @@
 import streamlit as st
-from sidebar.elements import add_element, remove_element, mark_task_done, edit_style
+from sidebar.elements import add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements
 
 # Funzione per creare una nuova lista
 def create_new_list():
@@ -77,7 +77,9 @@ def sidebar_selected_list(nome):
         st.session_state.active_list = None
         st.rerun()
     add_element()
+    edit_text()
     remove_element()
+    reorder_elements()
     mark_task_done()
     st.sidebar.button("🏷️ Etichetta")      # <-------- Implementare "Sistema di Etichette"
     edit_style()

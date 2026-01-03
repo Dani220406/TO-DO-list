@@ -1,4 +1,5 @@
 import streamlit as st
+from utils.helpers import parse_styled_text, build_styled_text
 
 # Funzione per aggiungere un elemento alla lista selezionata
 def add_element():
@@ -81,53 +82,117 @@ def edit_style():
         st.sidebar.info("Nessun elemento da modificare")
         return
 
+    # inizializza lo stato della selezione se non esiste
+    if "style_element_idx" not in st.session_state:
+        st.session_state.style_element_idx = 0
+
     with st.sidebar.popover("✏️ Modifica Stile", use_container_width=True):
-        with st.form("form_style"):
-            scelta = st.selectbox(
-                "Elemento",
-                [f"{i+1}. {item}" for i, item in enumerate(lista["dati"])],
-                key="style_element_select"
-            )
+        elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
 
-            idx = int(scelta.split(".")[0]) - 1
-            testo_originale = lista["dati"][idx]
-            testo = testo_originale
-            colore = None
+        scelta, idx = st.selectbox(
+            "Seleziona elemento",
+            elementi,
+            index=st.session_state.style_element_idx,
+            format_func=lambda x: x[0],
+            key="style_element_select"
+        )
 
-            if testo.startswith(":") and "[" in testo and testo.endswith("]"):
-                colore = testo[1:].split("[", 1)[0]
-                testo = testo.split("[", 1)[1][:-1]
+        # aggiorna lo stato quando si cambia selezione
+        st.session_state.style_element_idx = idx
+        current = parse_styled_text(lista["dati"][idx])
 
-            bold_prev = testo.startswith("**") and testo.endswith("**")
-            italic_prev = testo.startswith("*") and testo.endswith("*") and not bold_prev
+        # Checkbox e selectbox con key uniche
+        bold_now = st.checkbox("Grassetto", value=current["bold"], key=f"style_bold_{idx}")
+        italic_now = st.checkbox("Corsivo", value=current["italic"], key=f"style_italic_{idx}")
+        colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
+        color_now = st.selectbox(
+            "Colore",
+            colori,
+            index=colori.index(current["color"]) if current["color"] in colori else 0,
+            key=f"style_color_{idx}"
+        )
 
-            if bold_prev:
-                testo = testo[2:-2]
-            if italic_prev:
-                testo = testo[1:-1]
+        # Anteprima live
+        preview = {"text": current["text"], "bold": bold_now, "italic": italic_now, "color": color_now}
+        st.markdown(f"**Anteprima:** {build_styled_text(preview)}")
 
-            bold_now = st.checkbox("Grassetto", value=bold_prev, key="style_bold_checkbox")
-            italic_now = st.checkbox("Corsivo", value=italic_prev, key="style_italic_checkbox")
+        # Pulsante Applica
+        if st.button("Applica", key=f"apply_style_{idx}"):
+            lista["dati"][idx] = build_styled_text(preview)
+            st.rerun()
 
-            colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
-            colore_now = st.selectbox(
-                "Colore",
-                colori,
-                index=colori.index(colore) if colore in colori else 0,
-                key="style_color_select"
-            )
+# Funzione per modificare il testo di un elemento
+def edit_text():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
 
-            submit = st.form_submit_button("Applica")
+    if not lista or not lista["dati"]:
+        st.sidebar.info("Nessun elemento da modificare")
+        return
 
-            if submit:
-                nuovo = testo
+    if "edit_element_idx" not in st.session_state:
+        st.session_state.edit_element_idx = 0
 
-                if bold_now:
-                    nuovo = f"**{nuovo}**"
-                if italic_now:
-                    nuovo = f"*{nuovo}*"
-                if colore_now != "nessuno":
-                    nuovo = f":{colore_now}[{nuovo}]"
+    with st.sidebar.popover("📝 Modifica elemento", use_container_width=True):
+        elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
 
-                lista["dati"][idx] = nuovo
-                st.rerun()
+        scelta, idx = st.selectbox(
+            "Seleziona elemento",
+            elementi,
+            index=st.session_state.edit_element_idx,
+            format_func=lambda x: x[0],
+            key="edit_element_select"
+        )
+
+        st.session_state.edit_element_idx = idx
+
+        current = parse_styled_text(lista["dati"][idx])
+        new_text = st.text_area("Modifica testo", value=current["text"], key=f"edit_text_input_{idx}")
+
+        if st.button("Salva testo", key=f"save_text_{idx}"):
+            updated = {
+                "text": new_text,
+                "bold": current["bold"],
+                "italic": current["italic"],
+                "color": current["color"]
+            }
+            lista["dati"][idx] = build_styled_text(updated)
+            st.rerun()
+
+# Funzione per ordinare elementi nella lista
+def reorder_elements():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+
+    if not lista or not lista["dati"]:
+        st.sidebar.info("Nessun elemento da ordinare")
+        return
+
+    if "reorder_idx" not in st.session_state:
+        st.session_state.reorder_idx = 0
+
+    with st.sidebar.popover("🔀 Ordina elementi", use_container_width=True):
+        elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
+
+        scelta, idx = st.selectbox(
+            "Seleziona elemento da spostare",
+            elementi,
+            index=st.session_state.reorder_idx,
+            format_func=lambda x: x[0],
+            key="reorder_select"
+        )
+        st.session_state.reorder_idx = idx
+
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("⬆️ Su", key=f"move_up_{idx}"):
+                if idx > 0:
+                    lista["dati"][idx], lista["dati"][idx-1] = lista["dati"][idx-1], lista["dati"][idx]
+                    st.session_state.reorder_idx -= 1
+                    st.rerun()
+        with col2:
+            if st.button("⬇️ Giù", key=f"move_down_{idx}"):
+                if idx < len(lista["dati"]) - 1:
+                    lista["dati"][idx], lista["dati"][idx+1] = lista["dati"][idx+1], lista["dati"][idx]
+                    st.session_state.reorder_idx += 1
+                    st.rerun()
