@@ -12,7 +12,6 @@ def add_element():
             with st.form(key="form_aggiunta", clear_on_submit=True):
                 nuovo_item = st.text_input("Cosa vuoi aggiungere?")
                 submit = st.form_submit_button("Aggiungi")
-                
                 if submit:
                     if nuovo_item:
                         lista["dati"].append(nuovo_item)
@@ -73,7 +72,30 @@ def mark_task_done():
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "ETICHETTA"
+def priority_element():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    if not lista or not lista["dati"]:
+        st.sidebar.info("Nessun elemento da etichettare")
+        return
+    with st.sidebar.popover("🏷️ Etichetta",use_container_width=True):
+        with st.form(key="form_etichetta", clear_on_submit=True):
+                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+                elemento_da_etichettare = st.selectbox("Seleziona elemento da etichettare", options)
+
+                submit = st.form_submit_button("Etichetta")
+
+                st.warning("Etichettare un task già etichettato riumoverà l'etichetta")
+
+                if submit:
+                    idx = int(elemento_da_etichettare.split(".")[0]) - 1
+                    task = lista["dati"][idx]
+
+                    if task.startswith("🏷️"):
+                        lista["dati"][idx] = task.replace("🏷️ ", "", 1)
+                    else:
+                        lista["dati"][idx] = "🏷️ " + task
+                    st.rerun()
 
 # -------------------------------------------------------------
 
