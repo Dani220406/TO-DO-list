@@ -92,27 +92,14 @@ def edit_style():
     with st.sidebar.popover("✏️ Modifica Stile", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
 
-        scelta, idx = st.selectbox(
-            "Seleziona elemento",
-            elementi,
-            index=st.session_state.style_element_idx,
-            format_func=lambda x: x[0],
-            key="style_element_select"
-        )
-
+        scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
 
         bold_now = st.checkbox("Grassetto", value=current["bold"], key=f"style_bold_{idx}")
         italic_now = st.checkbox("Corsivo", value=current["italic"], key=f"style_italic_{idx}")
         colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
-        color_now = st.selectbox(
-            "Colore",
-            colori,
-            index=colori.index(current["color"]) if current["color"] in colori else 0,
-            key=f"style_color_{idx}"
-        )
-
+        color_now = st.selectbox("Colore", colori, index=colori.index(current["color"]) if current["color"] in colori else 0, key=f"style_color_{idx}")
         preview = {"text": current["text"], "bold": bold_now, "italic": italic_now, "color": color_now}
         st.markdown(f"**Anteprima:** {build_styled_text(preview)}")
 
@@ -137,26 +124,13 @@ def edit_text():
     with st.sidebar.popover("📝 Modifica elemento", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
 
-        scelta, idx = st.selectbox(
-            "Seleziona elemento",
-            elementi,
-            index=st.session_state.edit_element_idx,
-            format_func=lambda x: x[0],
-            key="edit_element_select"
-        )
-
+        scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
         st.session_state.edit_element_idx = idx
-
         current = parse_styled_text(lista["dati"][idx])
         new_text = st.text_area("Modifica testo", value=current["text"], key=f"edit_text_input_{idx}")
 
         if st.button("Salva testo", key=f"save_text_{idx}"):
-            updated = {
-                "text": new_text,
-                "bold": current["bold"],
-                "italic": current["italic"],
-                "color": current["color"]
-            }
+            updated = {"text": new_text, "bold": current["bold"], "italic": current["italic"], "color": current["color"]}
             lista["dati"][idx] = build_styled_text(updated)
             st.rerun()
 
@@ -177,13 +151,7 @@ def reorder_elements():
     with st.sidebar.popover("🔀 Ordina elementi", use_container_width=True):
         elementi = [(parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])]
 
-        scelta, idx = st.selectbox(
-            "Seleziona elemento da spostare",
-            elementi,
-            index=st.session_state.reorder_idx,
-            format_func=lambda x: x[0],
-            key="reorder_select"
-        )
+        scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi, index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
         st.session_state.reorder_idx = idx
 
         col1, col2 = st.columns(2)

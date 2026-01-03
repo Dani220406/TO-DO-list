@@ -33,7 +33,6 @@ def delete_list():
         with st.form(key="form_elimina_lista"):
             nomi_liste = [l["nome"] for l in st.session_state.my_lists]
             lista_da_eliminare = st.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
-
             submit = st.form_submit_button("❌ Elimina definitivamente")
 
             if submit:
@@ -51,7 +50,6 @@ def show_lists():
         return
 
     CARDS_PER_ROW = 4
-
     for i in range(0, len(liste), CARDS_PER_ROW):
         row = liste[i:i + CARDS_PER_ROW]
         cols = st.columns(len(row))
