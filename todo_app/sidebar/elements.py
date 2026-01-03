@@ -73,7 +73,25 @@ def mark_task_done():
 
 # -------------------------------------------------------------
 
-# Placeholder per funzione "ETICHETTA"
+def priority_element():
+    nome_lista = st.session_state.active_list
+    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    if not lista or not lista["dati"]:
+        st.sidebar.info("Nessun elemento da etichettare")
+        return
+    with st.sidebar.popover("🏷️ Etichetta",use_container_width=True):
+        with st.form(key="form_etichetta", clear_on_submit=True):
+                options = [f"{idx+1}. {item}" for idx, item in enumerate(lista["dati"])]
+                elemento_da_etichettare = st.selectbox("Seleziona elemento da etichettare", options)
+
+                submit = st.form_submit_button("Etichetta")
+
+                if submit:
+                    idx = int(elemento_da_etichettare.split(".")[0]) - 1
+                    temp = lista["dati"][0]
+                    lista["dati"][0] = lista["dati"][idx]
+                    lista["dati"][idx] = temp
+                    st.rerun()
 
 # -------------------------------------------------------------
 
