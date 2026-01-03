@@ -38,32 +38,32 @@ Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile esegu
 ## 🔗 Come è strutturato il progetto
 
 ```
-TO-DO-LIST
-│
-├── .devcontainer            # Demo Cloud Streamlit
-│
-├── todo_app/                # Cartella App
-│    ├── screens/            # Cartella pagine app
-│    │    ├── home.py        # Gestione Homepage
-│    │    └── welcome.py     # Welcome message
-│    │
-│    ├── sidebar/            # Cartella Funzioni Sidebar
-│    │    ├── elements.py    # Funzioni Elementi Lista
-│    │    ├── folders.py     # Funzioni Cartelle
-│    │    ├── info.py        # Info Funzioni
-│    │    └── lists.py       # Funzioni Lista
-│    │
-│    ├── utils/              # Cartella Supporto Funzioni
-│    │    └── helpers.py     # Subroutines di alcune Funzioni
-│    │
-│    ├── config.py           # Configurazione App
-│    └── main.py             # Avvio app
-│
-├── .gitignore               # File Ignorati Git Push
-├── LICENSE                  # Licenza App
-├── README.md                # Descrizione Progetto
-├── requirements_dev.txt     # Requisiti Unit-Tests
-└── requirements.txt         # Requisiti App
+🌐TO-DO-LIST
+    │
+    ├── .devcontainer                     # Demo Cloud Streamlit
+    │
+    ├── 🛠 todo_app/                       # Cartella App
+    │       ├── 💻 screens/               # Cartella pagine app
+    │       │       ├── 🏠 home.py        # Gestione Homepage
+    │       │       └── 👋 welcome.py     # Welcome message
+    │       │
+    │       ├── ⛓️ sidebar/                # Cartella Funzioni Sidebar
+    │       │       ├── 🔘 elements.py    # Funzioni Elementi Lista
+    │       │       ├── 📁 folders.py     # Funzioni Cartelle
+    │       │       ├── ℹ️ info.py        # Info Funzioni
+    │       │       └── 📄 lists.py        # Funzioni Lista
+    │       │
+    │       ├── ⁉️ utils/                 # Cartella Supporto Funzioni
+    │       │       └── 🤲 helpers.py     # Subroutines di alcune Funzioni
+    │       │
+    │       ├── ⚙️ config.py              # Configurazione App
+    │       └── 📱 main.py                # Avvio app
+    │
+    ├── 🚫 .gitignore                    # File Ignorati Git Push
+    ├── 🔑 LICENSE                       # Licenza App
+    ├── ✏️ README.md                     # Descrizione Progetto
+    ├── 🔒 requirements_dev.txt          # Requisiti Unit-Tests
+    └── 🔒 requirements.txt              # Requisiti App
 ```
 
 ## ⬇️ Installazione delle dipendenze
