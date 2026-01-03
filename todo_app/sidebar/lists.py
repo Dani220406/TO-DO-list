@@ -21,6 +21,8 @@ def create_new_list():
                     st.session_state.my_lists.append({"nome": nome, "dati": [], "cartella": None})
                     st.rerun()
 
+# -------------------------------------------------------------
+
 # Funzione per cancellare una lista
 def delete_list():
     if not st.session_state.my_lists:
@@ -39,6 +41,8 @@ def delete_list():
                 st.success(f"Lista '{lista_da_eliminare}' eliminata")
                 st.rerun()
 
+# -------------------------------------------------------------
+
 # Funzione per mostrare tutte le liste nella homepage
 def show_lists():
     liste = st.session_state.my_lists
@@ -46,7 +50,7 @@ def show_lists():
         st.info("Non hai ancora creato nessuna lista")
         return
 
-    CARDS_PER_ROW = 4 # Num. Liste mostrate per riga nella homepage
+    CARDS_PER_ROW = 4
 
     for i in range(0, len(liste), CARDS_PER_ROW):
         row = liste[i:i + CARDS_PER_ROW]
@@ -57,6 +61,8 @@ def show_lists():
                 if st.button(f"{lista['nome']}", key=f"open_{lista['nome']}", use_container_width=True):
                     st.session_state.active_list = lista["nome"]
                     st.rerun()
+
+# -------------------------------------------------------------
 
 # Funzione per mostrare una lista selezionata
 def show_selected_list():
@@ -70,6 +76,8 @@ def show_selected_list():
                 st.markdown(f"{idx}. {item}")
         else:
             st.info("Lista vuota, aggiungi un nuovo elemento.")
+
+# -------------------------------------------------------------
 
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):

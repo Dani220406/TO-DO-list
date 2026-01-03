@@ -20,6 +20,8 @@ def add_element():
                     else:
                         st.error("Nessun elemento inserito.")
 
+# -------------------------------------------------------------
+
 # Funzione che rimuove un elemento dalla lista
 def remove_element():
     nome_lista = st.session_state.active_list
@@ -39,6 +41,8 @@ def remove_element():
                     st.rerun()
     else:
         st.sidebar.info("Lista vuota, niente da rimuovere.")
+
+# -------------------------------------------------------------
 
 # Funzione che segna un elemento della lista come completato
 def mark_task_done():
@@ -82,7 +86,6 @@ def edit_style():
         st.sidebar.info("Nessun elemento da modificare")
         return
 
-    # inizializza lo stato della selezione se non esiste
     if "style_element_idx" not in st.session_state:
         st.session_state.style_element_idx = 0
 
@@ -97,11 +100,9 @@ def edit_style():
             key="style_element_select"
         )
 
-        # aggiorna lo stato quando si cambia selezione
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
 
-        # Checkbox e selectbox con key uniche
         bold_now = st.checkbox("Grassetto", value=current["bold"], key=f"style_bold_{idx}")
         italic_now = st.checkbox("Corsivo", value=current["italic"], key=f"style_italic_{idx}")
         colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
@@ -112,14 +113,14 @@ def edit_style():
             key=f"style_color_{idx}"
         )
 
-        # Anteprima live
         preview = {"text": current["text"], "bold": bold_now, "italic": italic_now, "color": color_now}
         st.markdown(f"**Anteprima:** {build_styled_text(preview)}")
 
-        # Pulsante Applica
         if st.button("Applica", key=f"apply_style_{idx}"):
             lista["dati"][idx] = build_styled_text(preview)
             st.rerun()
+
+# -------------------------------------------------------------
 
 # Funzione per modificare il testo di un elemento
 def edit_text():
@@ -158,6 +159,8 @@ def edit_text():
             }
             lista["dati"][idx] = build_styled_text(updated)
             st.rerun()
+
+# -------------------------------------------------------------
 
 # Funzione per ordinare elementi nella lista
 def reorder_elements():
