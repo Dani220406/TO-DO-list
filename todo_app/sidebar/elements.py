@@ -12,7 +12,6 @@ def add_element():
             with st.form(key="form_aggiunta", clear_on_submit=True):
                 nuovo_item = st.text_input("Cosa vuoi aggiungere?")
                 submit = st.form_submit_button("Aggiungi")
-                
                 if submit:
                     if nuovo_item:
                         lista["dati"].append(nuovo_item)
@@ -86,11 +85,16 @@ def priority_element():
 
                 submit = st.form_submit_button("Etichetta")
 
+                st.warning("Etichettare un task già etichettato riumoverà l'etichetta")
+
                 if submit:
                     idx = int(elemento_da_etichettare.split(".")[0]) - 1
-                    temp = lista["dati"][0]
-                    lista["dati"][0] = lista["dati"][idx]
-                    lista["dati"][idx] = temp
+                    task = lista["dati"][idx]
+
+                    if task.startswith("🏷️"):
+                        lista["dati"][idx] = task.replace("🏷️ ", "", 1)
+                    else:
+                        lista["dati"][idx] = "🏷️ " + task
                     st.rerun()
 
 # -------------------------------------------------------------
