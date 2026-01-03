@@ -72,6 +72,7 @@ Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile esegu
 
 - Python 3.12.3 (consigliato)
 - pip (package manager)
+- venv (consigliato creare un ambiente virtuale)
 
 ### Setup dipendenze
 
@@ -88,12 +89,11 @@ cd TO-DO-list
 pip install -r requirements.txt
 ```
 
-- **streamlit**: Interfaccia web interattiva
-
 3. **Avvia l'app:**
 
 ```bash
-streamlit run ToDoList.py
+cd todo_app
+streamlit run main.py
 ```
 
 ## 📝 Unit-Tests
