@@ -19,6 +19,8 @@ def parse_styled_text(s):
 
     return {"text": text, "bold": bold, "italic": italic, "color": color}
 
+# -------------------------------------------------------------
+
 # Funzione per applicare le modifiche di testo agli elementi
 def build_styled_text(d):
     t = d["text"]

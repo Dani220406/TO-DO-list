@@ -21,6 +21,8 @@ def create_folder():
                 st.success(f"Cartella '{nome_cartella}' creata")
                 st.rerun()
 
+# -------------------------------------------------------------
+
 # Funzione per mostrare le cartelle create nella sidebar
 def show_folders_sidebar():
     st.sidebar.markdown("---")
@@ -40,6 +42,8 @@ def show_folders_sidebar():
                     if st.button(l["nome"], key=f"open_{folder}_{l['nome']}", use_container_width=True):
                         st.session_state.active_list = l["nome"]
                         st.rerun()
+
+# -------------------------------------------------------------
 
 # Funzione per gestire le liste nelle cartelle
 def manage_list_folder():
@@ -65,6 +69,8 @@ def manage_list_folder():
                         break
                 st.rerun()
 
+# -------------------------------------------------------------
+
 # Funzione per cancellare una cartella
 def delete_folder():
     if not st.session_state.folders:
@@ -84,4 +90,3 @@ def delete_folder():
 
             st.success(f"Cartella '{cartella}' eliminata")
             st.rerun()
-
