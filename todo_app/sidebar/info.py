@@ -20,8 +20,8 @@ def info():
         - **Elimina elemento**: Eliminare un elemento selezionato.
         - **Ordina elemento**: Cambia l'ordine degli elementi nella lista.
         - **Task completato**: Segna un elemento nella lista come completato.
-        - **Etichetta**: Attribuisce un'etichetta ad un elemento per specificarne la priorità rispetto agli altri.
-        - **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato
+        - **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
+        - **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
 
         Buon Lavoro 😊! 
         """)

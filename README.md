@@ -4,8 +4,7 @@
 
 ## 🌐 Live Demo
 
-(WIP, da aggiornare)
-Prova l'applicazione online su: [Streamlit Cloud](https://to-do-list-hccwvjcjm4vu6z2kewxsqj.streamlit.app)
+Prova l'applicazione online su: [Streamlit Cloud](https://to-do-list-unict.streamlit.app/)
 
 ## 🔍 Come funziona l'app
 
@@ -32,8 +31,8 @@ Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile esegu
 - **Elimina elemento**: Eliminare un elemento selezionato.
 - **Ordina elemento**: Cambia l'ordine degli elementi nella lista.
 - **Task completato**: Segna un elemento nella lista come completato.
-- **Etichetta**: Attribuisce un'etichetta ad un elemento per specificarne la priorità rispetto agli altri.
-- **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato
+- **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
+- **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
 
 ## 🔗 Come è strutturato il progetto
 
@@ -58,6 +57,9 @@ Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile esegu
     │       │
     │       ├── ⚙️ config.py              # Configurazione App
     │       └── 📱 main.py                # Avvio app
+    │
+    ├── 🔬 tests/                         # Cartella Unit-Tests
+    │       ├──                           # (WIP)
     │
     ├── 🚫 .gitignore                    # File Ignorati Git Push
     ├── 🔑 LICENSE                       # Licenza App
