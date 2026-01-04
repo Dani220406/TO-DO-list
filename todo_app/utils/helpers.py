@@ -36,17 +36,22 @@ def build_styled_text(d):
 
 # -------------------------------------------------------------
 
-# Funzione per gestire conflitto emoji e caratteri *
+# Funzione per gestire conflitto emoji e caratteri * + priorità emoji
 def toggle_prefix_emoji(task, emoji):
     parsed = parse_styled_text(task)
     text = parsed["text"]
 
+    EMOJIS_ORDER = ["✔️", "🏷️"]
     words = text.split()
-    words = [w for w in words if w != emoji]
+    emojis_present = {e for e in EMOJIS_ORDER if e in words}
+    words = [w for w in words if w not in EMOJIS_ORDER]
 
-    if emoji not in text:
-        words.insert(0, emoji)
+    if emoji in emojis_present:
+        emojis_present.remove(emoji)
+    else:
+        emojis_present.add(emoji)
 
-    text = " ".join(words)
-    
+    ordered_emojis = [e for e in EMOJIS_ORDER if e in emojis_present]
+    text = " ".join(ordered_emojis + words)
+
     return build_styled_text({"text": text, "bold": parsed["bold"], "italic": parsed["italic"], "color": parsed["color"]})
