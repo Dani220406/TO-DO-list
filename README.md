@@ -2,10 +2,6 @@
 
 ## Applicazione per Gestire Task facilmente
 
-## 🌐 Live Demo
-
-Prova l'applicazione online su: [Streamlit Cloud](https://to-do-list-tjwm3wcu2qxydxkep77bdp.streamlit.app/)
-
 ## 🔍 Come funziona l'app
 
 L'app è divisa in due "layers", una homepage ed una list-page.
@@ -43,23 +39,38 @@ Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile esegu
     │
     ├── 🛠 todo_app/                       # Cartella App
     │       ├── 💻 screens/               # Cartella pagine app
+    │       │       ├── 🚧 __init__.py
     │       │       ├── 🏠 home.py        # Gestione Homepage
     │       │       └── 👋 welcome.py     # Welcome message
     │       │
     │       ├── ⛓️ sidebar/                # Cartella Funzioni Sidebar
+    │       │       ├── 🚧 __init__.py
     │       │       ├── 🔘 elements.py    # Funzioni Elementi Lista
     │       │       ├── 📁 folders.py     # Funzioni Cartelle
     │       │       ├── ℹ️ info.py        # Info Funzioni
     │       │       └── 📄 lists.py        # Funzioni Lista
     │       │
     │       ├── ⁉️ utils/                 # Cartella Supporto Funzioni
+    │       │       ├── 🚧 __init__.py
     │       │       └── 🤲 helpers.py     # Subroutines di alcune Funzioni
     │       │
+    │       ├── 🚧 __init__.py
     │       ├── ⚙️ config.py              # Configurazione App
-    │       └── 📱 main.py                # Avvio app
+    │       └── 📱 main.py                 # File Main
+    │
+    ├── 🖥️ app.py                         # Avvio App
     │
     ├── 🔬 tests/                         # Cartella Unit-Tests
-    │       ├──                           # (WIP)
+    │       ├── 🚧 __init__.py
+    │       ├── 🏗️ test_config.py         # Unit-Test Funzioni config.py
+    │       ├── 🏗️ test_elements.py       # Unit-Test Funzioni elements.py
+    │       ├── 🏗️ test_folders.py        # Unit-Test Funzioni folders.py
+    │       ├── 🏗️ test_helpers.py        # Unit-Test Funzioni helpers.py
+    │       ├── 🏗️ test_home.py           # Unit-Test Funzioni home.py
+    │       ├── 🏗️ test_info.py           # Unit-Test Funzioni info.py
+    │       ├── 🏗️ test_lists.py          # Unit-Test Funzioni lists.py
+    │       ├── 🏗️ test_main.py           # Unit-Test Funzioni main.py
+    │       └── 🏗️ test_welcome.py        # Unit-Test Funzioni welcome.py
     │
     ├── 🚫 .gitignore                    # File Ignorati Git Push
     ├── 🔑 LICENSE                       # Licenza App
@@ -91,15 +102,55 @@ cd TO-DO-list
 pip install -r requirements.txt
 ```
 
+*oppure manualmente:*
+
+```bash
+pip install streamlit
+```
+
 3. **Avvia l'app:**
 
 ```bash
-cd todo_app
-streamlit run main.py
+streamlit run app.py
 ```
 
 ## 📝 Unit-Tests
-WIP (Una volta finito il tutto, aggiungere informazioni sugli Unit Test e come eseguirli da terminale)
+Abbiamo organizzato gli Unit-Test di tutte le funzioni usate nell'app nella cartella **tests/**. Per poter eseguire i test è necessario:
+
+1. **Installa le dipendenze:**
+
+```bash
+pip install -r requirements_dev.txt
+```
+
+*oppure manualmente*
+
+```bash
+pip install pytest pytest-mock pytest-cov pylint
+```
+
+2. **Esegui i Test:**
+
+I test possono essere eseguiti o tutti contemporaneamente o singolarmente:
+
+*Contemporaneamente:*
+
+```bash
+cd TO-DO-list
+pytest tests/
+pytest --cov=tests/
+```
+
+*Singolarmente*
+
+```bash
+cd TO-DO-list
+pytest tests/test_elements.py
+pytest --cov=tests/test_elements.py
+...
+```
+
+🏆 *La code coverage del Progetto raggiunge **~98%** !*
 
 ## 👨‍💻 Autori
 
