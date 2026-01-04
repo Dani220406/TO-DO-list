@@ -4,7 +4,7 @@
 
 ## 🌐 Live Demo
 
-Prova l'applicazione online su: [Streamlit Cloud](https://to-do-list-unict.streamlit.app/)
+Prova l'applicazione online su: [Streamlit Cloud](https://to-do-list-tjwm3wcu2qxydxkep77bdp.streamlit.app/)
 
 ## 🔍 Come funziona l'app
 
