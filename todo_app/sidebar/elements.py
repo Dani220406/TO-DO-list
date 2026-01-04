@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
+from todo_app.utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
 
 # Funzione per pulire l'index in ogni nuova lista
 def safe_index(key: str, length: int):

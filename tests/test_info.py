@@ -1,9 +1,9 @@
 import pytest
-from test_todo_app.sidebar.info import info
+from todo_app.sidebar.info import info
 
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.sidebar.info.st")
+    st = mocker.patch("todo_app.sidebar.info.st")
     st.session_state = {}
 
     # Mock per sidebar.expander come context manager

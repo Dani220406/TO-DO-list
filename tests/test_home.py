@@ -1,10 +1,10 @@
 import pytest
 from types import SimpleNamespace
-from test_todo_app.screens.home import home
+from todo_app.screens.home import home
 
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.screens.home.st")
+    st = mocker.patch("todo_app.screens.home.st")
     st.session_state = SimpleNamespace(active_list=None, my_lists=[])
     return st
 
@@ -12,16 +12,16 @@ def mock_streamlit(mocker):
 
 def test_home_with_active_list(mocker, mock_streamlit):
     mock_streamlit.session_state.active_list = "Lista Test"
-    info = mocker.patch("test_todo_app.screens.home.info")
-    sidebar_selected_list = mocker.patch("test_todo_app.screens.home.sidebar_selected_list")
-    show_selected_list = mocker.patch("test_todo_app.screens.home.show_selected_list")
-    create_new_list = mocker.patch("test_todo_app.screens.home.create_new_list")
-    delete_list = mocker.patch("test_todo_app.screens.home.delete_list")
-    create_folder = mocker.patch("test_todo_app.screens.home.create_folder")
-    manage_list_folder = mocker.patch("test_todo_app.screens.home.manage_list_folder")
-    delete_folder = mocker.patch("test_todo_app.screens.home.delete_folder")
-    show_folders_sidebar = mocker.patch("test_todo_app.screens.home.show_folders_sidebar")
-    show_lists = mocker.patch("test_todo_app.screens.home.show_lists")
+    info = mocker.patch("todo_app.screens.home.info")
+    sidebar_selected_list = mocker.patch("todo_app.screens.home.sidebar_selected_list")
+    show_selected_list = mocker.patch("todo_app.screens.home.show_selected_list")
+    create_new_list = mocker.patch("todo_app.screens.home.create_new_list")
+    delete_list = mocker.patch("todo_app.screens.home.delete_list")
+    create_folder = mocker.patch("todo_app.screens.home.create_folder")
+    manage_list_folder = mocker.patch("todo_app.screens.home.manage_list_folder")
+    delete_folder = mocker.patch("todo_app.screens.home.delete_folder")
+    show_folders_sidebar = mocker.patch("todo_app.screens.home.show_folders_sidebar")
+    show_lists = mocker.patch("todo_app.screens.home.show_lists")
     home()
 
     info.assert_called_once()
@@ -38,16 +38,16 @@ def test_home_with_active_list(mocker, mock_streamlit):
 # -------------------------------------------------------------
 
 def test_home_without_active_list(mocker, mock_streamlit):
-    info = mocker.patch("test_todo_app.screens.home.info")
-    create_new_list = mocker.patch("test_todo_app.screens.home.create_new_list")
-    delete_list = mocker.patch("test_todo_app.screens.home.delete_list")
-    create_folder = mocker.patch("test_todo_app.screens.home.create_folder")
-    manage_list_folder = mocker.patch("test_todo_app.screens.home.manage_list_folder")
-    delete_folder = mocker.patch("test_todo_app.screens.home.delete_folder")
-    show_folders_sidebar = mocker.patch("test_todo_app.screens.home.show_folders_sidebar")
-    show_lists = mocker.patch("test_todo_app.screens.home.show_lists")
-    sidebar_selected_list = mocker.patch("test_todo_app.screens.home.sidebar_selected_list")
-    show_selected_list = mocker.patch("test_todo_app.screens.home.show_selected_list")
+    info = mocker.patch("todo_app.screens.home.info")
+    create_new_list = mocker.patch("todo_app.screens.home.create_new_list")
+    delete_list = mocker.patch("todo_app.screens.home.delete_list")
+    create_folder = mocker.patch("todo_app.screens.home.create_folder")
+    manage_list_folder = mocker.patch("todo_app.screens.home.manage_list_folder")
+    delete_folder = mocker.patch("todo_app.screens.home.delete_folder")
+    show_folders_sidebar = mocker.patch("todo_app.screens.home.show_folders_sidebar")
+    show_lists = mocker.patch("todo_app.screens.home.show_lists")
+    sidebar_selected_list = mocker.patch("todo_app.screens.home.sidebar_selected_list")
+    show_selected_list = mocker.patch("todo_app.screens.home.show_selected_list")
     home()
 
     info.assert_called_once()

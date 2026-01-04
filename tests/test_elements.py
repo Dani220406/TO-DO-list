@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from test_todo_app.sidebar.elements import safe_index,add_element,remove_element,mark_task_done,priority_element,edit_style,edit_text,reorder_elements
+from todo_app.sidebar.elements import safe_index,add_element,remove_element,mark_task_done,priority_element,edit_style,edit_text,reorder_elements
 
 # DotDict: dict + accesso tramite attributi
 class DotDict(dict):
@@ -21,7 +21,7 @@ class DotDict(dict):
 # Mock Streamlit
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.sidebar.elements.st")
+    st = mocker.patch("todo_app.sidebar.elements.st")
     st.session_state = DotDict(active_list="Test", my_lists=[DotDict(nome="Test", dati=["task1", "task2"])])
 
     # context manager mock (form, popover, columns)
@@ -48,21 +48,21 @@ def mock_streamlit(mocker):
 # Mock Helpers
 @pytest.fixture
 def mock_helpers(mocker):
-    mocker.patch("test_todo_app.sidebar.elements.parse_styled_text", return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
-    mocker.patch("test_todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
-    mocker.patch("test_todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
+    mocker.patch("todo_app.sidebar.elements.parse_styled_text", return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
+    mocker.patch("todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
+    mocker.patch("todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
 
 # -------------------------------------------------------------
 
 # safe_index
 def test_safe_index_init(mocker):
-    st = mocker.patch("test_todo_app.sidebar.elements.st")
+    st = mocker.patch("todo_app.sidebar.elements.st")
     st.session_state = DotDict()
     safe_index("idx", 5)
     assert st.session_state.idx == 0
 
 def test_safe_index_reset(mocker):
-    st = mocker.patch("test_todo_app.sidebar.elements.st")
+    st = mocker.patch("todo_app.sidebar.elements.st")
     st.session_state = DotDict(idx=10)
     safe_index("idx", 3)
     assert st.session_state.idx == 0

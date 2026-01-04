@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from test_todo_app.sidebar.folders import create_folder, show_folders_sidebar, manage_list_folder, delete_folder
+from todo_app.sidebar.folders import create_folder, show_folders_sidebar, manage_list_folder, delete_folder
 
 
 # DotDict: dict + accesso tramite attributi
@@ -20,7 +20,7 @@ class DotDict(dict):
 # Mock Streamlit
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.sidebar.folders.st")
+    st = mocker.patch("todo_app.sidebar.folders.st")
     st.session_state = DotDict(folders=[], my_lists=[], active_list=None)
 
     # context manager mock (form, popover, expander)

@@ -1,10 +1,10 @@
 import pytest
 from types import SimpleNamespace
-from test_todo_app.sidebar import lists
+from todo_app.sidebar import lists
 
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.sidebar.lists.st")
+    st = mocker.patch("todo_app.sidebar.lists.st")
     st.session_state = SimpleNamespace(my_lists=[], active_list=None)
 
     cm = mocker.MagicMock()
@@ -89,13 +89,13 @@ def test_show_selected_list_with_items(mock_streamlit):
 
 # sidebar_selected_list
 def test_sidebar_selected_list_calls_all(mocker, mock_streamlit):
-    mocker.patch("test_todo_app.sidebar.lists.add_element")
-    mocker.patch("test_todo_app.sidebar.lists.edit_text")
-    mocker.patch("test_todo_app.sidebar.lists.remove_element")
-    mocker.patch("test_todo_app.sidebar.lists.reorder_elements")
-    mocker.patch("test_todo_app.sidebar.lists.mark_task_done")
-    mocker.patch("test_todo_app.sidebar.lists.priority_element")
-    mocker.patch("test_todo_app.sidebar.lists.edit_style")
+    mocker.patch("todo_app.sidebar.lists.add_element")
+    mocker.patch("todo_app.sidebar.lists.edit_text")
+    mocker.patch("todo_app.sidebar.lists.remove_element")
+    mocker.patch("todo_app.sidebar.lists.reorder_elements")
+    mocker.patch("todo_app.sidebar.lists.mark_task_done")
+    mocker.patch("todo_app.sidebar.lists.priority_element")
+    mocker.patch("todo_app.sidebar.lists.edit_style")
 
     lists.sidebar_selected_list("Lista Test")
 

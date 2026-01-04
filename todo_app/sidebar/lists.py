@@ -1,5 +1,5 @@
 import streamlit as st
-from sidebar.elements import add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements,priority_element
+from todo_app.sidebar.elements import add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements,priority_element
 
 # Funzione per creare una nuova lista
 def create_new_list():

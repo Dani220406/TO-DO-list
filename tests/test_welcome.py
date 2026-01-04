@@ -1,12 +1,12 @@
 import pytest
 from types import SimpleNamespace
-from test_todo_app.screens.welcome import welcome_screen
+from todo_app.screens.welcome import welcome_screen
 
 @pytest.fixture
 def mock_streamlit_and_time(mocker):
     # Patch di st e time.sleep
-    st = mocker.patch("test_todo_app.screens.welcome.st")
-    mocker.patch("test_todo_app.screens.welcome.time.sleep")
+    st = mocker.patch("todo_app.screens.welcome.st")
+    mocker.patch("todo_app.screens.welcome.time.sleep")
     st.session_state = SimpleNamespace()
     st.rerun = mocker.MagicMock()
     return st

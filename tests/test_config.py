@@ -1,6 +1,6 @@
 import pytest
 from types import SimpleNamespace
-from test_todo_app.config import init_session_state
+from todo_app.config import init_session_state
 
 # Wrapper per permettere 'key' in session_state
 class SessionState(SimpleNamespace):
@@ -11,7 +11,7 @@ class SessionState(SimpleNamespace):
 
 @pytest.fixture
 def mock_streamlit(mocker):
-    st = mocker.patch("test_todo_app.config.st")
+    st = mocker.patch("todo_app.config.st")
     st.session_state = SessionState()
     return st
 
