@@ -67,7 +67,6 @@ def mark_task_done():
 
         if st.button("Completato"):
             testo = lista["dati"][idx]
-            
             lista["dati"][idx] = toggle_prefix_emoji(testo, "✔️")
             st.rerun()
 
@@ -92,7 +91,6 @@ def priority_element():
 
         if st.button("Etichetta"):
             testo = lista["dati"][idx]
-            
             lista["dati"][idx] = toggle_prefix_emoji(testo, "🏷️")
             st.rerun()
 
