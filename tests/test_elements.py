@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 from todo_app.sidebar.elements import (
-safe_index, add_element, remove_element, mark_task_done, priority_element, edit_style, edit_text, reorder_elements)
+    safe_index, add_element, remove_element, mark_task_done, priority_element, edit_style, edit_text, reorder_elements)
 
 
 # DotDict: dict + accesso tramite attributi
@@ -53,7 +53,7 @@ def mock_streamlit(mocker):
 @pytest.fixture
 def mock_helpers(mocker):
     mocker.patch("todo_app.sidebar.elements.parse_styled_text",
-    return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
+        return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
     mocker.patch("todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
     mocker.patch("todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
 

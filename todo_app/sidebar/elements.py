@@ -14,7 +14,7 @@ def safe_index(key: str, length: int):
 def add_element():
     st.sidebar.markdown("---")
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if lista is None:
         return
@@ -35,7 +35,7 @@ def add_element():
 # Funzione che rimuove un elemento dalla lista
 def remove_element():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -55,7 +55,7 @@ def remove_element():
 # Funzione che segna un elemento della lista come completato
 def mark_task_done():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -66,7 +66,7 @@ def mark_task_done():
         safe_index("done_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona task", elementi,
-        index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
+            index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
         st.session_state.done_idx = idx
         st.warning("Confermare un task già completato rimuoverà il checkmark")
 
@@ -81,7 +81,7 @@ def mark_task_done():
 # Funzione per etichettare un elemento
 def priority_element():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -92,7 +92,7 @@ def priority_element():
         safe_index("label_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-        index=st.session_state.label_idx, format_func=lambda x: x[0], key="label_select")
+            index=st.session_state.label_idx, format_func=lambda x: x[0], key="label_select")
         st.session_state.label_idx = idx
         st.warning("Etichettare un task già etichettato rimuoverà l'etichetta")
 
@@ -107,7 +107,7 @@ def priority_element():
 # Funzione per modificare lo stile di un elemento
 def edit_style():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -118,7 +118,7 @@ def edit_style():
         safe_index("style_element_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-        index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
+            index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         bold_now = st.checkbox("Grassetto", value=current["bold"])
@@ -126,7 +126,7 @@ def edit_style():
 
         colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
         color_now = st.selectbox("Colore", colori, index=colori.index(current["color"]) if current["color"] in colori else 0)
-        preview = {"text": current["text"], "bold": bold_now, "italic": italic_now, "color": color_now,}
+        preview = {"text": current["text"], "bold": bold_now, "italic": italic_now, "color": color_now}
         st.markdown(f"**Anteprima:** {build_styled_text(preview)}")
 
         if st.button("Applica"):
@@ -139,7 +139,7 @@ def edit_style():
 # Funzione per modificare il testo di un elemento
 def edit_text():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -150,13 +150,13 @@ def edit_text():
         safe_index("edit_element_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-        index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
+            index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
         st.session_state.edit_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         new_text = st.text_area("Modifica testo", value=current["text"])
 
         if st.button("Modifica"):
-            updated = {"text": new_text, "bold": current["bold"], "italic": current["italic"], "color": current["color"],}
+            updated = {"text": new_text, "bold": current["bold"], "italic": current["italic"], "color": current["color"]}
             lista["dati"][idx] = build_styled_text(updated)
             st.rerun()
 
@@ -166,7 +166,7 @@ def edit_text():
 # Funzione per ordinare elementi nella lista
 def reorder_elements():
     nome_lista = st.session_state.active_list
-    lista = next((l for l in st.session_state.my_lists if l["nome"] == nome_lista), None)
+    lista = next((t for t in st.session_state.my_lists if t["nome"] == nome_lista), None)
 
     if not lista or not lista["dati"]:
         return
@@ -177,7 +177,7 @@ def reorder_elements():
         safe_index("reorder_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi,
-        index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
+            index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
         st.session_state.reorder_idx = idx
         col1, col2 = st.columns(2)
 
