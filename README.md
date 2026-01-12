@@ -10,25 +10,25 @@ L'app è divisa in due "layers", una homepage ed una list-page.
 
 Si apre dopo il messaggio di benvenuto. Nella homepage è possibile eseguire azioni generali sulle TO-DO lists; nello specifico:
 
-- ➕**Crea nuova lista**: Crea una nuova TO-DO list inserendone il nome.
-- ❌**Elimina lista**: Elimina la TO-DO list selezionata.
-- ➕**Crea nuova cartella**: Crea una nuova cartella inserendone il nome.
-- 🔁**Gestione cartelle**: Sposta una lista nella cartella selezionata.
-- ❌**Elimina cartella**: Permette di eliminare la cartella selezionata senza cancellare le liste contenute all'interno.
-- 📁**Le mie cartelle**: Visualizza le cartelle create con le relative liste inserite al loro interno.
+- **Crea nuova lista**: Crea una nuova TO-DO list inserendone il nome.
+- **Elimina lista**: Elimina la TO-DO list selezionata.
+- **Crea nuova cartella**: Crea una nuova cartella inserendone il nome.
+- **Gestione cartelle**: Sposta una lista nella cartella selezionata.
+- **Elimina cartella**: Permette di eliminare la cartella selezionata senza cancellare le liste contenute all'interno.
+- **Le mie cartelle**: Visualizza le cartelle create con le relative liste inserite al loro interno.
 
 ### List-Page
 
 Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile eseguire azioni sugli elementi della TO-DO list selezionata; nello specifico:
 
-- 🔙**Torna alle liste**: Salva le modifiche applicate alla lista e tornare alla homepage.
-- ➕**Aggiungi elemento**: Aggiunge un nuovo elemento nella lista inserendone il nome.
-- ✏️**Modifica elemento**: Modifica il testo di un elemento nella lista.
-- ❌**Elimina elemento**: Eliminare un elemento selezionato.
-- 🔁**Ordina elemento**: Cambia l'ordine degli elementi nella lista.
-- ✅**Task completato**: Segna un elemento nella lista come completato.
-- 🏷️**Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
-- ✏️**Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
+- **Torna alle liste**: Salva le modifiche applicate alla lista e tornare alla homepage.
+- **Aggiungi elemento**: Aggiunge un nuovo elemento nella lista inserendone il nome.
+- **Modifica elemento**: Modifica il testo di un elemento nella lista.
+- **Elimina elemento**: Eliminare un elemento selezionato.
+- **Ordina elemento**: Cambia l'ordine degli elementi nella lista.
+- **Task completato**: Segna un elemento nella lista come completato.
+- **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
+- **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
 
 ## 🔗 Come è strutturato il progetto
 
