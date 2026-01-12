@@ -1,3 +1,4 @@
+# pylint: disable=redefined-outer-name,too-few-public-methods
 import pytest
 from unittest.mock import MagicMock
 from todo_app.sidebar.folders import create_folder, show_folders_sidebar, manage_list_folder, delete_folder
