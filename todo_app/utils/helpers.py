@@ -1,5 +1,3 @@
-import streamlit as st
-
 # Funzione per tenere traccia delle modifiche applicate al testo
 def parse_styled_text(s):
     color = None

@@ -1,4 +1,4 @@
-# pylint: disable=redefined-outer-name,too-few-public-methods
+# pylint: disable=redefined-outer-name,too-few-public-methods,raise-missing-from,unused-argument,duplicate-code
 import pytest
 from unittest.mock import MagicMock
 from todo_app.sidebar.elements import safe_index,add_element,remove_element,mark_task_done,priority_element,edit_style,edit_text,reorder_elements

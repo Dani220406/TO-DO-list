@@ -1,4 +1,4 @@
-# pylint: disable=redefined-outer-name,too-few-public-methods
+# pylint: disable=redefined-outer-name,too-few-public-methods,import-outside-toplevel
 import pytest
 from types import SimpleNamespace
 

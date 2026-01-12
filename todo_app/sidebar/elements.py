@@ -1,3 +1,4 @@
+# pylint: disable=unused-argument
 import streamlit as st
 from todo_app.utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
 
