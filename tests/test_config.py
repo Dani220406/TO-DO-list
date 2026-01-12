@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name,too-few-public-methods
 import pytest
 from types import SimpleNamespace
 from todo_app.config import init_session_state

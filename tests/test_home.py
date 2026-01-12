@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name,too-few-public-methods,unused-argument
 import pytest
 from types import SimpleNamespace
 from todo_app.screens.home import home

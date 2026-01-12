@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name,too-few-public-methods
 import pytest
 from todo_app.sidebar.info import info
 
