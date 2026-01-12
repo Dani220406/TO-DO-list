@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 # Funzione per creare una cartella in cui inserire liste
 def create_folder():
     st.sidebar.markdown("---")
@@ -23,6 +24,7 @@ def create_folder():
 
 # -------------------------------------------------------------
 
+
 # Funzione per mostrare le cartelle create nella sidebar
 def show_folders_sidebar():
     st.sidebar.markdown("---")
@@ -43,6 +45,7 @@ def show_folders_sidebar():
 
 # -------------------------------------------------------------
 
+
 # Funzione per gestire le liste nelle cartelle
 def manage_list_folder():
     if not st.session_state.my_lists or not st.session_state.folders:
@@ -53,7 +56,8 @@ def manage_list_folder():
             lista_nome = st.selectbox("Lista", [l["nome"] for l in st.session_state.my_lists])
             cartella_corrente = next((l.get("cartella") for l in st.session_state.my_lists if l["nome"] == lista_nome), None)
             cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
-            selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente) if cartella_corrente in cartelle_opzioni else 0, key="manage_folder_select")
+            selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente)
+            if cartella_corrente in cartelle_opzioni else 0, key="manage_folder_select")
             submit = st.form_submit_button("Sposta Lista")
 
             if submit:
@@ -64,6 +68,7 @@ def manage_list_folder():
                 st.rerun()
 
 # -------------------------------------------------------------
+
 
 # Funzione per cancellare una cartella
 def delete_folder():

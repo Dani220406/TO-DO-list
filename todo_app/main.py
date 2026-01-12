@@ -6,6 +6,7 @@ from todo_app.screens.home import home
 st.set_page_config(layout="wide")
 init_session_state()
 
+
 def main():
     if st.session_state.vista == "welcome":
         welcome_screen()

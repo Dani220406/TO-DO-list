@@ -1,6 +1,7 @@
 import pytest
 from todo_app.sidebar.info import info
 
+
 @pytest.fixture
 def mock_streamlit(mocker):
     st = mocker.patch("todo_app.sidebar.info.st")
@@ -19,6 +20,7 @@ def mock_streamlit(mocker):
     return st
 
 # -------------------------------------------------------------
+
 
 def test_info_renders_sidebar_content(mock_streamlit):
     info()

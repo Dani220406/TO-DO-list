@@ -1,6 +1,7 @@
 import pytest
 from todo_app.utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
 
+
 # parse_styled_text
 @pytest.mark.parametrize("input_text,expected", [
     ("ciao", {"text": "ciao", "bold": False, "italic": False, "color": None}),
@@ -14,6 +15,7 @@ def test_parse_styled_text(input_text, expected):
     assert parse_styled_text(input_text) == expected
 
 # -------------------------------------------------------------
+
 
 # build_styled_text
 @pytest.mark.parametrize("input_dict,expected", [
@@ -29,6 +31,7 @@ def test_build_styled_text(input_dict, expected):
     assert result.replace("\\", "") == expected
 
 # -------------------------------------------------------------
+
 
 # toggle_prefix_emoji
 def test_toggle_prefix_emoji():

@@ -1,12 +1,14 @@
 import streamlit as st
 from todo_app.utils.helpers import parse_styled_text, build_styled_text, toggle_prefix_emoji
 
+
 # Funzione per pulire l'index in ogni nuova lista
 def safe_index(key: str, length: int):
     if key not in st.session_state or st.session_state[key] >= length:
         st.session_state[key] = 0
 
 # -------------------------------------------------------------
+
 
 # Funzione per aggiungere un elemento alla lista selezionata
 def add_element():
@@ -29,6 +31,7 @@ def add_element():
 
 # -------------------------------------------------------------
 
+
 # Funzione che rimuove un elemento dalla lista
 def remove_element():
     nome_lista = st.session_state.active_list
@@ -48,6 +51,7 @@ def remove_element():
 
 # -------------------------------------------------------------
 
+
 # Funzione che segna un elemento della lista come completato
 def mark_task_done():
     nome_lista = st.session_state.active_list
@@ -61,7 +65,8 @@ def mark_task_done():
 
         safe_index("done_idx", len(elementi))
 
-        scelta, idx = st.selectbox("Seleziona task", elementi, index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
+        scelta, idx = st.selectbox("Seleziona task", elementi,
+        index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
         st.session_state.done_idx = idx
         st.warning("Confermare un task già completato rimuoverà il checkmark")
 
@@ -71,6 +76,7 @@ def mark_task_done():
             st.rerun()
 
 # -------------------------------------------------------------
+
 
 # Funzione per etichettare un elemento
 def priority_element():
@@ -85,7 +91,8 @@ def priority_element():
 
         safe_index("label_idx", len(elementi))
 
-        scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.label_idx, format_func=lambda x: x[0], key="label_select")
+        scelta, idx = st.selectbox("Seleziona elemento", elementi,
+        index=st.session_state.label_idx, format_func=lambda x: x[0], key="label_select")
         st.session_state.label_idx = idx
         st.warning("Etichettare un task già etichettato rimuoverà l'etichetta")
 
@@ -95,6 +102,7 @@ def priority_element():
             st.rerun()
 
 # -------------------------------------------------------------
+
 
 # Funzione per modificare lo stile di un elemento
 def edit_style():
@@ -109,7 +117,8 @@ def edit_style():
 
         safe_index("style_element_idx", len(elementi))
 
-        scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
+        scelta, idx = st.selectbox("Seleziona elemento", elementi,
+        index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         bold_now = st.checkbox("Grassetto", value=current["bold"])
@@ -126,6 +135,7 @@ def edit_style():
 
 # -------------------------------------------------------------
 
+
 # Funzione per modificare il testo di un elemento
 def edit_text():
     nome_lista = st.session_state.active_list
@@ -139,7 +149,8 @@ def edit_text():
 
         safe_index("edit_element_idx", len(elementi))
 
-        scelta, idx = st.selectbox("Seleziona elemento", elementi, index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
+        scelta, idx = st.selectbox("Seleziona elemento", elementi,
+        index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
         st.session_state.edit_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         new_text = st.text_area("Modifica testo", value=current["text"])
@@ -150,6 +161,7 @@ def edit_text():
             st.rerun()
 
 # -------------------------------------------------------------
+
 
 # Funzione per ordinare elementi nella lista
 def reorder_elements():
@@ -164,7 +176,8 @@ def reorder_elements():
 
         safe_index("reorder_idx", len(elementi))
 
-        scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi, index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
+        scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi,
+        index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
         st.session_state.reorder_idx = idx
         col1, col2 = st.columns(2)
 

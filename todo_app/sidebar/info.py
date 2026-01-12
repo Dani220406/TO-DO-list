@@ -1,10 +1,11 @@
 import streamlit as st
 
+
 def info():
     with st.sidebar.expander("ℹ️ Info", expanded=False):
         st.markdown("""
         *Puoi ingrandire la dimensione della sidebar con drag del mouse*
-                
+
         **HOMEPAGE**
         - **Nuova lista**: Crea una nuova TO-DO list inserendone il nome.
         - **Elimina lista**: Elimina la TO-DO list selezionata.

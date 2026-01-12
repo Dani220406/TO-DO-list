@@ -2,6 +2,7 @@ import pytest
 from types import SimpleNamespace
 from todo_app.sidebar import lists
 
+
 @pytest.fixture
 def mock_streamlit(mocker):
     st = mocker.patch("todo_app.sidebar.lists.st")
@@ -24,6 +25,7 @@ def mock_streamlit(mocker):
 
 # -------------------------------------------------------------
 
+
 # create_new_list
 def test_create_new_list_empty_name(mock_streamlit):
     mock_streamlit.text_input.return_value = ""
@@ -45,6 +47,7 @@ def test_create_new_list_success(mock_streamlit):
 
 # -------------------------------------------------------------
 
+
 # delete_list
 def test_delete_list_empty(mock_streamlit):
     lists.delete_list()
@@ -59,6 +62,7 @@ def test_delete_list_success(mock_streamlit):
 
 # -------------------------------------------------------------
 
+
 # show_lists
 def test_show_lists_empty(mock_streamlit):
     lists.show_lists()
@@ -71,6 +75,7 @@ def test_show_lists_click_opens_list(mock_streamlit):
     mock_streamlit.rerun.assert_called_once()
 
 # -------------------------------------------------------------
+
 
 # show_selected_list
 def test_show_selected_list_empty(mock_streamlit):
@@ -86,6 +91,7 @@ def test_show_selected_list_with_items(mock_streamlit):
     assert mock_streamlit.markdown.call_count >= 3
 
 # -------------------------------------------------------------
+
 
 # sidebar_selected_list
 def test_sidebar_selected_list_calls_all(mocker, mock_streamlit):

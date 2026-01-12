@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 
+
 def welcome_screen():
     st.markdown(
         """

@@ -2,12 +2,14 @@ import pytest
 from types import SimpleNamespace
 from todo_app.config import init_session_state
 
+
 # Wrapper per permettere 'key' in session_state
 class SessionState(SimpleNamespace):
     def __contains__(self, key):
         return hasattr(self, key)
 
 # -------------------------------------------------------------
+
 
 @pytest.fixture
 def mock_streamlit(mocker):
@@ -16,6 +18,7 @@ def mock_streamlit(mocker):
     return st
 
 # -------------------------------------------------------------
+
 
 def test_init_session_state_all_keys_added(mock_streamlit):
     st = mock_streamlit
@@ -27,6 +30,7 @@ def test_init_session_state_all_keys_added(mock_streamlit):
     assert st.session_state.folders == []
 
 # -------------------------------------------------------------
+
 
 def test_init_session_state_preserves_existing_keys(mock_streamlit):
     st = mock_streamlit

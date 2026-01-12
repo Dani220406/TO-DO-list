@@ -2,6 +2,7 @@ import pytest
 from types import SimpleNamespace
 from todo_app.screens.home import home
 
+
 @pytest.fixture
 def mock_streamlit(mocker):
     st = mocker.patch("todo_app.screens.home.st")
@@ -9,6 +10,7 @@ def mock_streamlit(mocker):
     return st
 
 # -------------------------------------------------------------
+
 
 def test_home_with_active_list(mocker, mock_streamlit):
     mock_streamlit.session_state.active_list = "Lista Test"
@@ -36,6 +38,7 @@ def test_home_with_active_list(mocker, mock_streamlit):
     show_lists.assert_not_called()
 
 # -------------------------------------------------------------
+
 
 def test_home_without_active_list(mocker, mock_streamlit):
     info = mocker.patch("todo_app.screens.home.info")

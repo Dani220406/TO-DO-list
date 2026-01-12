@@ -1,6 +1,7 @@
 import pytest
 from types import SimpleNamespace
 
+
 # Fixture per patchare st e simulare session_state
 @pytest.fixture
 def mock_st(mocker):
@@ -9,6 +10,7 @@ def mock_st(mocker):
     return st
 
 # -------------------------------------------------------------
+
 
 def test_main_calls_welcome_screen(mock_st, mocker):
     mock_st.session_state.vista = "welcome"
@@ -23,6 +25,7 @@ def test_main_calls_welcome_screen(mock_st, mocker):
     home_mock.assert_not_called()
 
 # -------------------------------------------------------------
+
 
 def test_main_calls_home(mock_st, mocker):
     mock_st.session_state.vista = "home"

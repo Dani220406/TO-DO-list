@@ -1,6 +1,8 @@
 import pytest
 from unittest.mock import MagicMock
-from todo_app.sidebar.elements import safe_index,add_element,remove_element,mark_task_done,priority_element,edit_style,edit_text,reorder_elements
+from todo_app.sidebar.elements import(
+safe_index, add_element, remove_element, mark_task_done, priority_element, edit_style, edit_text, reorder_elements)
+
 
 # DotDict: dict + accesso tramite attributi
 class DotDict(dict):
@@ -17,6 +19,7 @@ class DotDict(dict):
         del self[key]
 
 # -------------------------------------------------------------
+
 
 # Mock Streamlit
 @pytest.fixture
@@ -45,14 +48,17 @@ def mock_streamlit(mocker):
 
 # -------------------------------------------------------------
 
+
 # Mock Helpers
 @pytest.fixture
 def mock_helpers(mocker):
-    mocker.patch("todo_app.sidebar.elements.parse_styled_text", return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
+    mocker.patch("todo_app.sidebar.elements.parse_styled_text",
+    return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
     mocker.patch("todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
     mocker.patch("todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
 
 # -------------------------------------------------------------
+
 
 # safe_index
 def test_safe_index_init(mocker):
@@ -69,6 +75,7 @@ def test_safe_index_reset(mocker):
 
 # -------------------------------------------------------------
 
+
 # add_element
 def test_add_element_adds_item(mock_streamlit):
     add_element()
@@ -83,6 +90,7 @@ def test_add_element_empty_input(mock_streamlit):
 
 # -------------------------------------------------------------
 
+
 # remove_element
 def test_remove_element(mock_streamlit, mock_helpers):
     remove_element()
@@ -91,6 +99,7 @@ def test_remove_element(mock_streamlit, mock_helpers):
     mock_streamlit.rerun.assert_called_once()
 
 # -------------------------------------------------------------
+
 
 # mark_task_done
 def test_mark_task_done(mock_streamlit, mock_helpers):
@@ -101,6 +110,7 @@ def test_mark_task_done(mock_streamlit, mock_helpers):
 
 # -------------------------------------------------------------
 
+
 # priority_element
 def test_priority_element(mock_streamlit, mock_helpers):
     priority_element()
@@ -109,6 +119,7 @@ def test_priority_element(mock_streamlit, mock_helpers):
     mock_streamlit.rerun.assert_called_once()
 
 # -------------------------------------------------------------
+
 
 # edit_style
 def test_edit_style(mock_streamlit, mock_helpers):
@@ -119,6 +130,7 @@ def test_edit_style(mock_streamlit, mock_helpers):
 
 # -------------------------------------------------------------
 
+
 # edit_text
 def test_edit_text(mock_streamlit, mock_helpers):
     edit_text()
@@ -127,6 +139,7 @@ def test_edit_text(mock_streamlit, mock_helpers):
     mock_streamlit.rerun.assert_called_once()
 
 # -------------------------------------------------------------
+
 
 # reorder_elements
 def test_reorder_elements_up(mock_streamlit, mock_helpers):

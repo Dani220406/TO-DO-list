@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from todo_app.sidebar.folders import create_folder, show_folders_sidebar, manage_list_folder, delete_folder
 
+
 # DotDict: dict + accesso tramite attributi
 class DotDict(dict):
     def __getattr__(self, key):
@@ -9,12 +10,15 @@ class DotDict(dict):
             return self[key]
         except KeyError:
             raise AttributeError(key)
+        
     def __setattr__(self, key, value):
         self[key] = value
+        
     def __delattr__(self, key):
         del self[key]
 
 # -------------------------------------------------------------
+
 
 # Mock Streamlit
 @pytest.fixture
@@ -41,6 +45,7 @@ def mock_streamlit(mocker):
 
 # -------------------------------------------------------------
 
+
 # create_folder
 def test_create_folder_empty_name(mock_streamlit):
     mock_streamlit.text_input.return_value = ""
@@ -61,6 +66,7 @@ def test_create_folder_success(mock_streamlit):
 
 # -------------------------------------------------------------
 
+
 # show_folders_sidebar
 def test_show_folders_sidebar_empty(mock_streamlit):
     show_folders_sidebar()
@@ -80,6 +86,7 @@ def test_show_folders_sidebar_open_list(mock_streamlit):
 
 # -------------------------------------------------------------
 
+
 # manage_list_folder
 def test_manage_list_folder_early_return(mock_streamlit):
     manage_list_folder()
@@ -95,6 +102,7 @@ def test_manage_list_folder_assign(mock_streamlit):
     mock_streamlit.rerun.assert_called_once()
 
 # -------------------------------------------------------------
+
 
 # delete_folder
 def test_delete_folder_early_return(mock_streamlit):

@@ -1,5 +1,7 @@
 import streamlit as st
-from todo_app.sidebar.elements import add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements,priority_element
+from todo_app.sidebar.elements import(
+add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements, priority_element)
+
 
 # Funzione per creare una nuova lista
 def create_new_list():
@@ -23,6 +25,7 @@ def create_new_list():
 
 # -------------------------------------------------------------
 
+
 # Funzione per cancellare una lista
 def delete_list():
     if not st.session_state.my_lists:
@@ -40,6 +43,7 @@ def delete_list():
                 st.rerun()
 
 # -------------------------------------------------------------
+
 
 # Funzione per mostrare tutte le liste nella homepage
 def show_lists():
@@ -61,6 +65,7 @@ def show_lists():
 
 # -------------------------------------------------------------
 
+
 # Funzione per mostrare una lista selezionata
 def show_selected_list():
     nome = st.session_state.active_list
@@ -75,6 +80,7 @@ def show_selected_list():
             st.info("Lista vuota, aggiungi un nuovo elemento.")
 
 # -------------------------------------------------------------
+
 
 # Sidebar una volta selezionata una lista da guardare
 def sidebar_selected_list(nome):
