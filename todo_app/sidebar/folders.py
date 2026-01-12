@@ -57,7 +57,8 @@ def manage_list_folder():
             cartella_corrente = next((t.get("cartella") for t in st.session_state.my_lists if t["nome"] == lista_nome), None)
             cartelle_opzioni = ["— Nessuna —"] + st.session_state.folders
             selezione = st.selectbox("Cartella", cartelle_opzioni, index=cartelle_opzioni.index(cartella_corrente)
-                if cartella_corrente in cartelle_opzioni else 0, key="manage_folder_select")
+                                     if cartella_corrente in cartelle_opzioni else 0,
+                                     key="manage_folder_select")
             submit = st.form_submit_button("Sposta Lista")
 
             if submit:

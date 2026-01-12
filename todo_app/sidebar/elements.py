@@ -66,7 +66,7 @@ def mark_task_done():
         safe_index("done_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona task", elementi,
-            index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
+                                   index=st.session_state.done_idx, format_func=lambda x: x[0], key="done_select")
         st.session_state.done_idx = idx
         st.warning("Confermare un task già completato rimuoverà il checkmark")
 
@@ -92,7 +92,8 @@ def priority_element():
         safe_index("label_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-            index=st.session_state.label_idx, format_func=lambda x: x[0], key="label_select")
+                                   index=st.session_state.label_idx, format_func=lambda x: x[0],
+                                   key="label_select")
         st.session_state.label_idx = idx
         st.warning("Etichettare un task già etichettato rimuoverà l'etichetta")
 
@@ -118,7 +119,8 @@ def edit_style():
         safe_index("style_element_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-            index=st.session_state.style_element_idx, format_func=lambda x: x[0], key="style_element_select")
+                                   index=st.session_state.style_element_idx, format_func=lambda x: x[0],
+                                   key="style_element_select")
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         bold_now = st.checkbox("Grassetto", value=current["bold"])
@@ -150,7 +152,8 @@ def edit_text():
         safe_index("edit_element_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento", elementi,
-            index=st.session_state.edit_element_idx, format_func=lambda x: x[0], key="edit_element_select")
+                                   index=st.session_state.edit_element_idx, format_func=lambda x: x[0],
+                                   key="edit_element_select")
         st.session_state.edit_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
         new_text = st.text_area("Modifica testo", value=current["text"])
@@ -177,7 +180,8 @@ def reorder_elements():
         safe_index("reorder_idx", len(elementi))
 
         scelta, idx = st.selectbox("Seleziona elemento da spostare", elementi,
-            index=st.session_state.reorder_idx, format_func=lambda x: x[0], key="reorder_select")
+                                   index=st.session_state.reorder_idx, format_func=lambda x: x[0],
+                                   key="reorder_select")
         st.session_state.reorder_idx = idx
         col1, col2 = st.columns(2)
 

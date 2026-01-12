@@ -53,7 +53,7 @@ def mock_streamlit(mocker):
 @pytest.fixture
 def mock_helpers(mocker):
     mocker.patch("todo_app.sidebar.elements.parse_styled_text",
-        return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
+                 return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
     mocker.patch("todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
     mocker.patch("todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
 
