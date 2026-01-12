@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from todo_app.sidebar.elements import(
+from todo_app.sidebar.elements import (
 safe_index, add_element, remove_element, mark_task_done, priority_element, edit_style, edit_text, reorder_elements)
 
 
@@ -67,6 +67,7 @@ def test_safe_index_init(mocker):
     safe_index("idx", 5)
     assert st.session_state.idx == 0
 
+
 def test_safe_index_reset(mocker):
     st = mocker.patch("todo_app.sidebar.elements.st")
     st.session_state = DotDict(idx=10)
@@ -82,6 +83,7 @@ def test_add_element_adds_item(mock_streamlit):
     lista = mock_streamlit.session_state.my_lists[0]
     assert "nuovo task" in lista.dati
     mock_streamlit.rerun.assert_called_once()
+
 
 def test_add_element_empty_input(mock_streamlit):
     mock_streamlit.text_input.return_value = "   "

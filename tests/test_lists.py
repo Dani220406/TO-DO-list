@@ -33,11 +33,13 @@ def test_create_new_list_empty_name(mock_streamlit):
     mock_streamlit.error.assert_called_once()
     assert mock_streamlit.session_state.my_lists == []
 
+
 def test_create_new_list_duplicate(mock_streamlit):
     mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": [], "cartella": None}]
     lists.create_new_list()
     mock_streamlit.warning.assert_called_once()
     assert len(mock_streamlit.session_state.my_lists) == 1
+
 
 def test_create_new_list_success(mock_streamlit):
     lists.create_new_list()
@@ -52,6 +54,7 @@ def test_create_new_list_success(mock_streamlit):
 def test_delete_list_empty(mock_streamlit):
     lists.delete_list()
     mock_streamlit.sidebar.popover.assert_not_called()
+
 
 def test_delete_list_success(mock_streamlit):
     mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": [], "cartella": None}]
@@ -68,6 +71,7 @@ def test_show_lists_empty(mock_streamlit):
     lists.show_lists()
     mock_streamlit.info.assert_called_once()
 
+
 def test_show_lists_click_opens_list(mock_streamlit):
     mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": []}]
     lists.show_lists()
@@ -83,6 +87,7 @@ def test_show_selected_list_empty(mock_streamlit):
     mock_streamlit.session_state.active_list = "Lista Test"
     lists.show_selected_list()
     mock_streamlit.info.assert_called_once()
+
 
 def test_show_selected_list_with_items(mock_streamlit):
     mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": ["task1", "task2"]}]

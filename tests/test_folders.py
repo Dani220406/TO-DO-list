@@ -53,10 +53,12 @@ def test_create_folder_empty_name(mock_streamlit):
     mock_streamlit.error.assert_called_once()
     assert mock_streamlit.session_state.folders == []
 
+
 def test_create_folder_duplicate(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
     create_folder()
     mock_streamlit.warning.assert_called_once()
+
 
 def test_create_folder_success(mock_streamlit):
     create_folder()
@@ -72,10 +74,12 @@ def test_show_folders_sidebar_empty(mock_streamlit):
     show_folders_sidebar()
     mock_streamlit.sidebar.subheader.assert_not_called()
 
+
 def test_show_folders_sidebar_no_lists(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
     show_folders_sidebar()
     mock_streamlit.caption.assert_called_once()
+
 
 def test_show_folders_sidebar_open_list(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
@@ -91,6 +95,7 @@ def test_show_folders_sidebar_open_list(mock_streamlit):
 def test_manage_list_folder_early_return(mock_streamlit):
     manage_list_folder()
     mock_streamlit.sidebar.popover.assert_not_called()
+
 
 def test_manage_list_folder_assign(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
@@ -108,6 +113,7 @@ def test_manage_list_folder_assign(mock_streamlit):
 def test_delete_folder_early_return(mock_streamlit):
     delete_folder()
     mock_streamlit.sidebar.popover.assert_not_called()
+
 
 def test_delete_folder_success(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]

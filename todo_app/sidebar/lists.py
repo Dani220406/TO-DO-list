@@ -1,5 +1,5 @@
 import streamlit as st
-from todo_app.sidebar.elements import(
+from todo_app.sidebar.elements import (
 add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements, priority_element)
 
 

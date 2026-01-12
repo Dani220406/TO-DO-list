@@ -24,6 +24,6 @@ def info():
         - **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
         - **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
 
-        Buon Lavoro 😊! 
+        Buon Lavoro 😊!
         """)
     st.sidebar.markdown("---")

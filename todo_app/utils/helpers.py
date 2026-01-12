@@ -21,6 +21,7 @@ def parse_styled_text(s):
 
 # -------------------------------------------------------------
 
+
 # Funzione per applicare le modifiche di testo agli elementi
 def build_styled_text(d):
     t = d["text"]
@@ -33,6 +34,7 @@ def build_styled_text(d):
     return t
 
 # -------------------------------------------------------------
+
 
 # Funzione per gestire conflitto emoji e caratteri * + priorità emoji
 def toggle_prefix_emoji(task, emoji):
