@@ -2,4 +2,3 @@ streamlit
 flake8
 mypy
 black
-isort
