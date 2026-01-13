@@ -224,7 +224,7 @@ def edit_text():
                 "text": new_text,
                 "bold": current["bold"],
                 "italic": current["italic"],
-                "color": current["color"]
+                "color": current["color"],
             }
             lista["dati"][idx] = build_styled_text(updated)
             st.rerun()

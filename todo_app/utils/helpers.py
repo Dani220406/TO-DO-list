@@ -61,6 +61,6 @@ def toggle_prefix_emoji(task, emoji):
             "text": text,
             "bold": parsed["bold"],
             "italic": parsed["italic"],
-            "color": parsed["color"]
+            "color": parsed["color"],
         }
     )
