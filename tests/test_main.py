@@ -37,7 +37,7 @@ def test_main_calls_home(mock_st, mocker):
 
     # Importiamo main DOPO aver patchato st e le schermate
     from todo_app.main import main
-    
+
     main()
 
     home_mock.assert_called_once()

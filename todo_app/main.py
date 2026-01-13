@@ -12,3 +12,4 @@ def main():
         welcome_screen()
     elif st.session_state.vista == "home":
         home()
+    
