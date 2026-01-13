@@ -3,7 +3,8 @@ import streamlit as st
 
 def info():
     with st.sidebar.expander("ℹ️ Info", expanded=False):
-        st.markdown("""
+        st.markdown(
+            """
         *Puoi ingrandire la dimensione della sidebar con drag del mouse*
 
         **HOMEPAGE**
@@ -25,5 +26,6 @@ def info():
         - **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
 
         Buon Lavoro 😊!
-        """)
+        """
+        )
     st.sidebar.markdown("---")

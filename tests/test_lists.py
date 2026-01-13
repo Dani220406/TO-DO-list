@@ -23,6 +23,7 @@ def mock_streamlit(mocker):
 
     return st
 
+
 # -------------------------------------------------------------
 
 
@@ -35,7 +36,9 @@ def test_create_new_list_empty_name(mock_streamlit):
 
 
 def test_create_new_list_duplicate(mock_streamlit):
-    mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": [], "cartella": None}]
+    mock_streamlit.session_state.my_lists = [
+        {"nome": "Lista Test", "dati": [], "cartella": None}
+    ]
     lists.create_new_list()
     mock_streamlit.warning.assert_called_once()
     assert len(mock_streamlit.session_state.my_lists) == 1
@@ -47,6 +50,7 @@ def test_create_new_list_success(mock_streamlit):
     assert mock_streamlit.session_state.my_lists[0]["nome"] == "Lista Test"
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -57,11 +61,14 @@ def test_delete_list_empty(mock_streamlit):
 
 
 def test_delete_list_success(mock_streamlit):
-    mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": [], "cartella": None}]
+    mock_streamlit.session_state.my_lists = [
+        {"nome": "Lista Test", "dati": [], "cartella": None}
+    ]
     lists.delete_list()
     assert mock_streamlit.session_state.my_lists == []
     mock_streamlit.success.assert_called_once()
     mock_streamlit.rerun.assert_called_once()
+
 
 # -------------------------------------------------------------
 
@@ -78,6 +85,7 @@ def test_show_lists_click_opens_list(mock_streamlit):
     assert mock_streamlit.session_state.active_list == "Lista Test"
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -90,10 +98,13 @@ def test_show_selected_list_empty(mock_streamlit):
 
 
 def test_show_selected_list_with_items(mock_streamlit):
-    mock_streamlit.session_state.my_lists = [{"nome": "Lista Test", "dati": ["task1", "task2"]}]
+    mock_streamlit.session_state.my_lists = [
+        {"nome": "Lista Test", "dati": ["task1", "task2"]}
+    ]
     mock_streamlit.session_state.active_list = "Lista Test"
     lists.show_selected_list()
     assert mock_streamlit.markdown.call_count >= 3
+
 
 # -------------------------------------------------------------
 

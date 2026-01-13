@@ -12,6 +12,7 @@ def mock_streamlit_and_time(mocker):
     st.rerun = mocker.MagicMock()
     return st
 
+
 # -------------------------------------------------------------
 
 

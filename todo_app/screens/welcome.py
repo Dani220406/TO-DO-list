@@ -10,7 +10,7 @@ def welcome_screen():
             <h3>Quali sono i tuoi piani per oggi?</h3>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
     time.sleep(3)  # Per simulare il caricamento dell'app
     st.session_state.vista = "home"

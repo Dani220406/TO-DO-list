@@ -19,6 +19,7 @@ def parse_styled_text(s):
 
     return {"text": text, "bold": bold, "italic": italic, "color": color}
 
+
 # -------------------------------------------------------------
 
 
@@ -32,6 +33,7 @@ def build_styled_text(d):
     if d.get("color") and d["color"] != "nessuno":
         t = f":{d['color']}[{t}]"
     return t
+
 
 # -------------------------------------------------------------
 
@@ -54,4 +56,11 @@ def toggle_prefix_emoji(task, emoji):
     ordered_emojis = [e for e in EMOJIS_ORDER if e in emojis_present]
     text = " ".join(ordered_emojis + words)
 
-    return build_styled_text({"text": text, "bold": parsed["bold"], "italic": parsed["italic"], "color": parsed["color"]})
+    return build_styled_text(
+        {
+            "text": text,
+            "bold": parsed["bold"],
+            "italic": parsed["italic"],
+            "color": parsed["color"]
+        }
+    )

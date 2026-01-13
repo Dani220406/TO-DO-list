@@ -9,6 +9,7 @@ def mock_st(mocker):
     st.session_state = SimpleNamespace()
     return st
 
+
 # -------------------------------------------------------------
 
 
@@ -19,10 +20,12 @@ def test_main_calls_welcome_screen(mock_st, mocker):
 
     # Importiamo main DOPO aver patchato st e le schermate
     from todo_app.main import main
+
     main()
 
     welcome_mock.assert_called_once()
     home_mock.assert_not_called()
+
 
 # -------------------------------------------------------------
 
@@ -34,6 +37,7 @@ def test_main_calls_home(mock_st, mocker):
 
     # Importiamo main DOPO aver patchato st e le schermate
     from todo_app.main import main
+    
     main()
 
     home_mock.assert_called_once()

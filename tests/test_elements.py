@@ -1,7 +1,15 @@
 import pytest
 from unittest.mock import MagicMock
 from todo_app.sidebar.elements import (
-    safe_index, add_element, remove_element, mark_task_done, priority_element, edit_style, edit_text, reorder_elements)
+    safe_index,
+    add_element,
+    remove_element,
+    mark_task_done,
+    priority_element,
+    edit_style,
+    edit_text,
+    reorder_elements,
+)
 
 
 # DotDict: dict + accesso tramite attributi
@@ -18,6 +26,7 @@ class DotDict(dict):
     def __delattr__(self, key):
         del self[key]
 
+
 # -------------------------------------------------------------
 
 
@@ -25,7 +34,9 @@ class DotDict(dict):
 @pytest.fixture
 def mock_streamlit(mocker):
     st = mocker.patch("todo_app.sidebar.elements.st")
-    st.session_state = DotDict(active_list="Test", my_lists=[DotDict(nome="Test", dati=["task1", "task2"])])
+    st.session_state = DotDict(
+        active_list="Test", my_lists=[DotDict(nome="Test", dati=["task1", "task2"])]
+    )
 
     # context manager mock (form, popover, columns)
     cm = MagicMock()
@@ -46,16 +57,24 @@ def mock_streamlit(mocker):
 
     return st
 
+
 # -------------------------------------------------------------
 
 
 # Mock Helpers
 @pytest.fixture
 def mock_helpers(mocker):
-    mocker.patch("todo_app.sidebar.elements.parse_styled_text",
-                 return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"))
-    mocker.patch("todo_app.sidebar.elements.build_styled_text", return_value="styled-task")
-    mocker.patch("todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1")
+    mocker.patch(
+        "todo_app.sidebar.elements.parse_styled_text",
+        return_value=DotDict(text="task1", bold=False, italic=False, color="nessuno"),
+    )
+    mocker.patch(
+        "todo_app.sidebar.elements.build_styled_text", return_value="styled-task"
+    )
+    mocker.patch(
+        "todo_app.sidebar.elements.toggle_prefix_emoji", return_value="✔️ task1"
+    )
+
 
 # -------------------------------------------------------------
 
@@ -74,6 +93,7 @@ def test_safe_index_reset(mocker):
     safe_index("idx", 3)
     assert st.session_state.idx == 0
 
+
 # -------------------------------------------------------------
 
 
@@ -90,6 +110,7 @@ def test_add_element_empty_input(mock_streamlit):
     add_element()
     mock_streamlit.error.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -99,6 +120,7 @@ def test_remove_element(mock_streamlit, mock_helpers):
     lista = mock_streamlit.session_state.my_lists[0]
     assert len(lista.dati) == 1
     mock_streamlit.rerun.assert_called_once()
+
 
 # -------------------------------------------------------------
 
@@ -110,6 +132,7 @@ def test_mark_task_done(mock_streamlit, mock_helpers):
     assert lista.dati[0].startswith("✔️")
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -119,6 +142,7 @@ def test_priority_element(mock_streamlit, mock_helpers):
     lista = mock_streamlit.session_state.my_lists[0]
     assert "task1" in lista.dati[0]
     mock_streamlit.rerun.assert_called_once()
+
 
 # -------------------------------------------------------------
 
@@ -130,6 +154,7 @@ def test_edit_style(mock_streamlit, mock_helpers):
     assert lista.dati[0] == "styled-task"
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -139,6 +164,7 @@ def test_edit_text(mock_streamlit, mock_helpers):
     lista = mock_streamlit.session_state.my_lists[0]
     assert lista.dati[0] == "styled-task"
     mock_streamlit.rerun.assert_called_once()
+
 
 # -------------------------------------------------------------
 

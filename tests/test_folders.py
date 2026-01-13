@@ -1,6 +1,11 @@
 import pytest
 from unittest.mock import MagicMock
-from todo_app.sidebar.folders import create_folder, show_folders_sidebar, manage_list_folder, delete_folder
+from todo_app.sidebar.folders import (
+    create_folder,
+    show_folders_sidebar,
+    manage_list_folder,
+    delete_folder,
+)
 
 
 # DotDict: dict + accesso tramite attributi
@@ -16,6 +21,7 @@ class DotDict(dict):
 
     def __delattr__(self, key):
         del self[key]
+
 
 # -------------------------------------------------------------
 
@@ -43,6 +49,7 @@ def mock_streamlit(mocker):
 
     return st
 
+
 # -------------------------------------------------------------
 
 
@@ -66,6 +73,7 @@ def test_create_folder_success(mock_streamlit):
     mock_streamlit.success.assert_called_once()
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -83,10 +91,13 @@ def test_show_folders_sidebar_no_lists(mock_streamlit):
 
 def test_show_folders_sidebar_open_list(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
-    mock_streamlit.session_state.my_lists = [DotDict(nome="Lista 1", cartella="Cartella Test")]
+    mock_streamlit.session_state.my_lists = [
+        DotDict(nome="Lista 1", cartella="Cartella Test")
+    ]
     show_folders_sidebar()
     assert mock_streamlit.session_state.active_list == "Lista 1"
     mock_streamlit.rerun.assert_called_once()
+
 
 # -------------------------------------------------------------
 
@@ -106,6 +117,7 @@ def test_manage_list_folder_assign(mock_streamlit):
     assert mock_streamlit.session_state.my_lists[0].cartella == "Cartella Test"
     mock_streamlit.rerun.assert_called_once()
 
+
 # -------------------------------------------------------------
 
 
@@ -117,7 +129,9 @@ def test_delete_folder_early_return(mock_streamlit):
 
 def test_delete_folder_success(mock_streamlit):
     mock_streamlit.session_state.folders = ["Cartella Test"]
-    mock_streamlit.session_state.my_lists = [DotDict(nome="Lista 1", cartella="Cartella Test")]
+    mock_streamlit.session_state.my_lists = [
+        DotDict(nome="Lista 1", cartella="Cartella Test")
+    ]
     delete_folder()
 
     assert "Cartella Test" not in mock_streamlit.session_state.folders

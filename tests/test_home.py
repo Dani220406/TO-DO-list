@@ -9,6 +9,7 @@ def mock_streamlit(mocker):
     st.session_state = SimpleNamespace(active_list=None, my_lists=[])
     return st
 
+
 # -------------------------------------------------------------
 
 
@@ -36,6 +37,7 @@ def test_home_with_active_list(mocker, mock_streamlit):
     delete_folder.assert_not_called()
     show_folders_sidebar.assert_not_called()
     show_lists.assert_not_called()
+
 
 # -------------------------------------------------------------
 

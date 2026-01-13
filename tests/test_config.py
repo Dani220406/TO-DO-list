@@ -8,6 +8,7 @@ class SessionState(SimpleNamespace):
     def __contains__(self, key):
         return hasattr(self, key)
 
+
 # -------------------------------------------------------------
 
 
@@ -16,6 +17,7 @@ def mock_streamlit(mocker):
     st = mocker.patch("todo_app.config.st")
     st.session_state = SessionState()
     return st
+
 
 # -------------------------------------------------------------
 
@@ -28,6 +30,7 @@ def test_init_session_state_all_keys_added(mock_streamlit):
     assert st.session_state.my_lists == []
     assert st.session_state.active_list is None
     assert st.session_state.folders == []
+
 
 # -------------------------------------------------------------
 

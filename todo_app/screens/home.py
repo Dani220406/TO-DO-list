@@ -1,7 +1,18 @@
 import streamlit as st
 from todo_app.sidebar.info import info
-from todo_app.sidebar.lists import create_new_list, delete_list, show_lists, sidebar_selected_list, show_selected_list
-from todo_app.sidebar.folders import create_folder, delete_folder, show_folders_sidebar, manage_list_folder
+from todo_app.sidebar.lists import (
+    create_new_list,
+    delete_list,
+    show_lists,
+    sidebar_selected_list,
+    show_selected_list,
+)
+from todo_app.sidebar.folders import (
+    create_folder,
+    delete_folder,
+    show_folders_sidebar,
+    manage_list_folder,
+)
 
 
 def home():

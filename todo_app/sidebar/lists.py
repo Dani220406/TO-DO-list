@@ -1,6 +1,13 @@
 import streamlit as st
 from todo_app.sidebar.elements import (
-    add_element, remove_element, mark_task_done, edit_style, edit_text, reorder_elements, priority_element)
+    add_element,
+    remove_element,
+    mark_task_done,
+    edit_style,
+    edit_text,
+    reorder_elements,
+    priority_element,
+)
 
 
 # Funzione per creare una nuova lista
@@ -20,8 +27,11 @@ def create_new_list():
                 if nome in nomi_esistenti:
                     st.warning("Esiste già una lista con questo nome.")
                 else:
-                    st.session_state.my_lists.append({"nome": nome, "dati": [], "cartella": None})
+                    st.session_state.my_lists.append(
+                        {"nome": nome, "dati": [], "cartella": None}
+                    )
                     st.rerun()
+
 
 # -------------------------------------------------------------
 
@@ -34,13 +44,20 @@ def delete_list():
     with st.sidebar.popover("🗑️ Elimina lista", use_container_width=True):
         with st.form(key="form_elimina_lista"):
             nomi_liste = [t["nome"] for t in st.session_state.my_lists]
-            lista_da_eliminare = st.selectbox("Seleziona lista", nomi_liste, key="delete_list_select")
+            lista_da_eliminare = st.selectbox(
+                "Seleziona lista", nomi_liste, key="delete_list_select"
+            )
             submit = st.form_submit_button("Elimina Lista")
 
             if submit:
-                st.session_state.my_lists = [t for t in st.session_state.my_lists if t["nome"] != lista_da_eliminare]
+                st.session_state.my_lists = [
+                    t
+                    for t in st.session_state.my_lists
+                    if t["nome"] != lista_da_eliminare
+                ]
                 st.success(f"Lista '{lista_da_eliminare}' eliminata")
                 st.rerun()
+
 
 # -------------------------------------------------------------
 
@@ -54,14 +71,19 @@ def show_lists():
 
     CARDS_PER_ROW = 4
     for i in range(0, len(liste), CARDS_PER_ROW):
-        row = liste[i:i + CARDS_PER_ROW]
+        row = liste[i : i + CARDS_PER_ROW]
         cols = st.columns(len(row))
 
         for col, lista in zip(cols, row):
             with col:
-                if st.button(f"{lista['nome']}", key=f"open_{lista['nome']}", use_container_width=True):
+                if st.button(
+                    f"{lista['nome']}",
+                    key=f"open_{lista['nome']}",
+                    use_container_width=True,
+                ):
                     st.session_state.active_list = lista["nome"]
                     st.rerun()
+
 
 # -------------------------------------------------------------
 
@@ -78,6 +100,7 @@ def show_selected_list():
                 st.markdown(f"{idx}. {item}")
         else:
             st.info("Lista vuota, aggiungi un nuovo elemento.")
+
 
 # -------------------------------------------------------------
 
