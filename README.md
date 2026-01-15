@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-Try the Live Demo at: **[To-Do-List](https://to-do-list-unict.streamlit.app/)**
+Try the Live Demo at: **[To-Do-List](https://to-do-list-unict.streamlit.app/)**  
 Make sure to give a ⭐ if you like this project and want to support us!
 
 ---
@@ -17,7 +17,8 @@ The app is divided into two "layers", an homepage and a list-page.
 
 ### Homepage
 
-Opens after a welcome message. In the Homepage it's possible to do general actions onto the TO-DO Lists; more specifically:
+Opens after a welcome message.  
+In the Homepage it's possible to do general actions onto the TO-DO Lists, more specifically:
 
 - **Create New List**: Creates a new TO-DO List by adding its name.
 - **Delete List**: Deletes the selected TO-DO List.
@@ -28,7 +29,8 @@ Opens after a welcome message. In the Homepage it's possible to do general actio
 
 ### List-Page
 
-Opens when a TO-DO List is selected. In the List-Page it's possible to do specific actions onto the selected TO-DO List's elements; more specifically:
+Opens when a TO-DO List is selected.
+In the List-Page it's possible to do specific actions onto selected TO-DO List's elements, more specifically:
 
 - **Back to Homepage**: Saves the updated contents of the TO-DO List and returns back to the Homepage.
 - **Add Element**: Creates a new element in the TO-DO List by adding its name.
