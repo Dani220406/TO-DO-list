@@ -2,9 +2,14 @@
 
 ## App for Easier Task Managment
 
+---
+
 ## 🌐 Live Demo
 
 Try the Live Demo at: **[To-Do-List](https://to-do-list-unict.streamlit.app/)**
+Make sure to give a ⭐ if you like this project and want to support us!
+
+---
 
 ## 🔍 How the app works
 
@@ -33,6 +38,8 @@ Opens when a TO-DO List is selected. In the List-Page it's possible to do specif
 - **Complete Task**: Marks the selected task as completed.
 - **Label**: Adds a label to the selected element to simbolize its priority compared to other elements.
 - **Edit Style**: Allows to add Bold/Italics/Text-Color to the selected element.
+
+---
 
 ## 🔗 How the Project is Structured
 
@@ -92,6 +99,8 @@ Opens when a TO-DO List is selected. In the List-Page it's possible to do specif
     └── 🔒 requirements.txt                 # App Requirements
 ```
 
+---
+
 ## ⬇️ Installing App Dependencies
 
 ### Pre-requirements
@@ -126,6 +135,8 @@ pip install streamlit
 ```bash
 streamlit run app.py
 ```
+
+---
 
 ## 📝 Unit-Tests
 We've organized the Unit-Tests of all methods used in the app inside the **tests/** folder. To run the tests it's required: 
@@ -164,6 +175,14 @@ pytest --cov=tests/test_elements.py
 ```
 
 🏆 *The Project has a code coverage of: **~98%** !*
+
+---
+
+## 💬 Feedback
+
+For any tips of how to improve the app or issues needed to be fixed, please reach to us so we can address them as soon as possible! We'll keep improving it and adding new features in due time. 🚀
+
+---
 
 ## 👨‍💻 Developers
 
