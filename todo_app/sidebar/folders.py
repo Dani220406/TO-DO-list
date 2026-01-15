@@ -88,9 +88,7 @@ def manage_list_folder():
             if submit:
                 for t in st.session_state.my_lists:
                     if t["nome"] == lista_nome:
-                        t["cartella"] = (
-                            None if selezione == "— None —" else selezione
-                        )
+                        t["cartella"] = None if selezione == "— None —" else selezione
                         break
                 st.rerun()
 
