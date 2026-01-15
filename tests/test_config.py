@@ -3,7 +3,7 @@ from types import SimpleNamespace
 from todo_app.config import init_session_state
 
 
-# Wrapper per permettere 'key' in session_state
+# Wrapper to allow 'key' in session_state
 class SessionState(SimpleNamespace):
     def __contains__(self, key):
         return hasattr(self, key)

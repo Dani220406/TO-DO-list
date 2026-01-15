@@ -12,7 +12,7 @@ from todo_app.sidebar.elements import (
 )
 
 
-# DotDict: dict + accesso tramite attributi
+# DotDict: dict + access with attributes
 class DotDict(dict):
     def __getattr__(self, key):
         try:

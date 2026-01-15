@@ -12,6 +12,6 @@ def welcome_screen():
         """,
         unsafe_allow_html=True,
     )
-    time.sleep(3)  # Per simulare il caricamento dell'app
+    time.sleep(3)  # To simulate the app's loading
     st.session_state.vista = "home"
     st.rerun()

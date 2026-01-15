@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-# Funzione per creare una cartella in cui inserire liste
+# Method to create a list to put lists in
 def create_folder():
     st.sidebar.markdown("---")
     with st.sidebar.popover("📁 Crea nuova cartella", use_container_width=True):
@@ -26,7 +26,7 @@ def create_folder():
 # -------------------------------------------------------------
 
 
-# Funzione per mostrare le cartelle create nella sidebar
+# Method to show created folders in sidebar
 def show_folders_sidebar():
     st.sidebar.markdown("---")
     if not st.session_state.folders:
@@ -54,7 +54,7 @@ def show_folders_sidebar():
 # -------------------------------------------------------------
 
 
-# Funzione per gestire le liste nelle cartelle
+# Method to manage lists in folders
 def manage_list_folder():
     if not st.session_state.my_lists or not st.session_state.folders:
         return
@@ -98,7 +98,7 @@ def manage_list_folder():
 # -------------------------------------------------------------
 
 
-# Funzione per cancellare una cartella
+# Method to delete a folder
 def delete_folder():
     if not st.session_state.folders:
         return

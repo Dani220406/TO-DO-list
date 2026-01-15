@@ -5,7 +5,7 @@ from todo_app.screens.welcome import welcome_screen
 
 @pytest.fixture
 def mock_streamlit_and_time(mocker):
-    # Patch di st e time.sleep
+    # st and time.sleep patch
     st = mocker.patch("todo_app.screens.welcome.st")
     mocker.patch("todo_app.screens.welcome.time.sleep")
     st.session_state = SimpleNamespace()

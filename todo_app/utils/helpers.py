@@ -1,4 +1,4 @@
-# Funzione per tenere traccia delle modifiche applicate al testo
+# Method to keep track of changes applied to text
 def parse_styled_text(s):
     color = None
     bold = False
@@ -23,7 +23,7 @@ def parse_styled_text(s):
 # -------------------------------------------------------------
 
 
-# Funzione per applicare le modifiche di testo agli elementi
+# Method to apply text edits to elements
 def build_styled_text(d):
     t = d["text"]
     if d.get("bold"):
@@ -38,7 +38,7 @@ def build_styled_text(d):
 # -------------------------------------------------------------
 
 
-# Funzione per gestire conflitto emoji e caratteri * + priorità emoji
+# Method to manage conflict between emojis and * characters + emoji priority
 def toggle_prefix_emoji(task, emoji):
     parsed = parse_styled_text(task)
     text = parsed["text"]

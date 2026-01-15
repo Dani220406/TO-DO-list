@@ -6,7 +6,7 @@ from todo_app.utils.helpers import (
 )
 
 
-# Funzione per pulire l'index in ogni nuova lista
+# Method to clear index in every new list
 def safe_index(key: str, length: int):
     if key not in st.session_state or st.session_state[key] >= length:
         st.session_state[key] = 0
@@ -15,7 +15,7 @@ def safe_index(key: str, length: int):
 # -------------------------------------------------------------
 
 
-# Funzione per aggiungere un elemento alla lista selezionata
+# Method to add an element to selected list
 def add_element():
     st.sidebar.markdown("---")
     nome_lista = st.session_state.active_list
@@ -40,7 +40,7 @@ def add_element():
 # -------------------------------------------------------------
 
 
-# Funzione che rimuove un elemento dalla lista
+# Method to delete an element from list
 def remove_element():
     nome_lista = st.session_state.active_list
     lista = next(
@@ -68,7 +68,7 @@ def remove_element():
 # -------------------------------------------------------------
 
 
-# Funzione che segna un elemento della lista come completato
+# Method to mark list element as completed
 def mark_task_done():
     nome_lista = st.session_state.active_list
     lista = next(
@@ -104,7 +104,7 @@ def mark_task_done():
 # -------------------------------------------------------------
 
 
-# Funzione per etichettare un elemento
+# Method to label an element
 def priority_element():
     nome_lista = st.session_state.active_list
     lista = next(
@@ -140,7 +140,7 @@ def priority_element():
 # -------------------------------------------------------------
 
 
-# Funzione per modificare lo stile di un elemento
+# Method to edit an element's text style
 def edit_style():
     nome_lista = st.session_state.active_list
     lista = next(
@@ -191,7 +191,7 @@ def edit_style():
 # -------------------------------------------------------------
 
 
-# Funzione per modificare il testo di un elemento
+# Method to edit an element's text
 def edit_text():
     nome_lista = st.session_state.active_list
     lista = next(
@@ -233,7 +233,7 @@ def edit_text():
 # -------------------------------------------------------------
 
 
-# Funzione per ordinare elementi nella lista
+# Method to order elements in list
 def reorder_elements():
     nome_lista = st.session_state.active_list
     lista = next(

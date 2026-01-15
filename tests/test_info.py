@@ -7,13 +7,13 @@ def mock_streamlit(mocker):
     st = mocker.patch("todo_app.sidebar.info.st")
     st.session_state = {}
 
-    # Mock per sidebar.expander come context manager
+    # Mock for sidebar.expander as context manager
     cm = mocker.MagicMock()
     cm.__enter__.return_value = None
     cm.__exit__.return_value = None
     st.sidebar.expander.return_value = cm
 
-    # Mock per chiamate a markdown
+    # Mock to call markdown
     st.markdown = mocker.MagicMock()
     st.sidebar.markdown = mocker.MagicMock()
 

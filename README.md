@@ -1,139 +1,139 @@
 # 📋 TO-DO-list
 
-## Applicazione per Gestire Task facilmente
+## App for Easier Task Managment
 
-## 🔍 Come funziona l'app
+## 🔍 How the app works
 
-L'app è divisa in due "layers", una homepage ed una list-page.
+The app is divided into two "layers", an homepage and a list-page.
 
 ### Homepage
 
-Si apre dopo il messaggio di benvenuto. Nella homepage è possibile eseguire azioni generali sulle TO-DO lists; nello specifico:
+Opens after a welcome message. In the Homepage it's possible to do general actions onto the TO-DO Lists; more specifically:
 
-- **Crea nuova lista**: Crea una nuova TO-DO list inserendone il nome.
-- **Elimina lista**: Elimina la TO-DO list selezionata.
-- **Crea nuova cartella**: Crea una nuova cartella inserendone il nome.
-- **Gestione cartelle**: Sposta una lista nella cartella selezionata.
-- **Elimina cartella**: Permette di eliminare la cartella selezionata senza cancellare le liste contenute all'interno.
-- **Le mie cartelle**: Visualizza le cartelle create con le relative liste inserite al loro interno.
+- **Create New List**: Creates a new TO-DO List by adding its name.
+- **Delete List**: Deletes the selected TO-DO List.
+- **Create New Folder**: Creates a new folder by adding its name.
+- **Manage Folders**: Moves a TO-DO List into the chosen folder.
+- **Delete Folder**: Allows to delete the selected folder whilst preserving its contents.
+- **My Folders**: Shows the created folders alongside its contents.
 
 ### List-Page
 
-Si apre quando è selezionata una TO-DO list. Nella List-Page è possibile eseguire azioni sugli elementi della TO-DO list selezionata; nello specifico:
+Opens when a TO-DO List is selected. In the List-Page it's possible to do specific actions onto the selected TO-DO List's elements; more specifically:
 
-- **Torna alle liste**: Salva le modifiche applicate alla lista e tornare alla homepage.
-- **Aggiungi elemento**: Aggiunge un nuovo elemento nella lista inserendone il nome.
-- **Modifica elemento**: Modifica il testo di un elemento nella lista.
-- **Elimina elemento**: Eliminare un elemento selezionato.
-- **Ordina elemento**: Cambia l'ordine degli elementi nella lista.
-- **Task completato**: Segna un elemento nella lista come completato.
-- **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
-- **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
+- **Back to Homepage**: Saves the updated contents of the TO-DO List and returns back to the Homepage.
+- **Add Element**: Creates a new element in the TO-DO List by adding its name.
+- **Edit Element**: Allows to edit the text of the selected element.
+- **Delete Element**: Deletes the selected element.
+- **Order Elements**: Allows to change the order of elements within the TO-DO List.
+- **Complete Task**: Marks the selected task as completed.
+- **Label**: Adds a label to the selected element to simbolize its priority compared to other elements.
+- **Edit Style**: Allows to add Bold/Italics/Text-Color to the selected element.
 
-## 🔗 Come è strutturato il progetto
+## 🔗 How the Project is Structured
 
 ```
 🌐TO-DO-LIST
     │
     ├── .devcontainer                     # Demo Cloud Streamlit
     │
-    ├── 🛠 todo_app/                       # Cartella App
-    │       ├── 💻 screens/               # Cartella pagine app
+    ├── 🛠 todo_app/                       # App Folder
+    │       ├── 💻 screens/               # App Layers Folder
     │       │       ├── 🚧 __init__.py
-    │       │       ├── 🏠 home.py        # Gestione Homepage
-    │       │       └── 👋 welcome.py     # Welcome message
+    │       │       ├── 🏠 home.py        # Homepage Managment
+    │       │       └── 👋 welcome.py     # Welcome Message
     │       │
-    │       ├── ⛓️ sidebar/                # Cartella Funzioni Sidebar
+    │       ├── ⛓️ sidebar/                # Sidebar Methods Folder
     │       │       ├── 🚧 __init__.py
-    │       │       ├── 🔘 elements.py    # Funzioni Elementi Lista
-    │       │       ├── 📁 folders.py     # Funzioni Cartelle
-    │       │       ├── ℹ️ info.py        # Info Funzioni
-    │       │       └── 📄 lists.py        # Funzioni Lista
+    │       │       ├── 🔘 elements.py    # List Elements Methods
+    │       │       ├── 📁 folders.py     # Folder Methods
+    │       │       ├── ℹ️ info.py        # Info on App Methods
+    │       │       └── 📄 lists.py        # List Methods
     │       │
-    │       ├── ⁉️ utils/                 # Cartella Supporto Funzioni
+    │       ├── ⁉️ utils/                 # Utils Methods Folder
     │       │       ├── 🚧 __init__.py
-    │       │       └── 🤲 helpers.py     # Subroutines di alcune Funzioni
+    │       │       └── 🤲 helpers.py     # Subroutines of some Methods
     │       │
     │       ├── 🚧 __init__.py
-    │       ├── ⚙️ config.py              # Configurazione App
-    │       └── 📱 main.py                 # File Main
+    │       ├── ⚙️ config.py              # App Configuration
+    │       └── 📱 main.py                 # Main File
     │
-    ├── 🖥️ app.py                         # Avvio App
+    ├── 🖥️ app.py                         # App Deployment
     │
-    ├── 🔬 tests/                         # Cartella Unit-Tests
+    ├── 🔬 tests/                         # Unit-Tests Folder
     │       ├── 🚧 __init__.py
-    │       ├── 🏗️ test_config.py         # Unit-Test Funzioni config.py
-    │       ├── 🏗️ test_elements.py       # Unit-Test Funzioni elements.py
-    │       ├── 🏗️ test_folders.py        # Unit-Test Funzioni folders.py
-    │       ├── 🏗️ test_helpers.py        # Unit-Test Funzioni helpers.py
-    │       ├── 🏗️ test_home.py           # Unit-Test Funzioni home.py
-    │       ├── 🏗️ test_info.py           # Unit-Test Funzioni info.py
-    │       ├── 🏗️ test_lists.py          # Unit-Test Funzioni lists.py
-    │       ├── 🏗️ test_main.py           # Unit-Test Funzioni main.py
-    │       └── 🏗️ test_welcome.py        # Unit-Test Funzioni welcome.py
+    │       ├── 🏗️ test_config.py         # Unit-Tests *config.py* Methods
+    │       ├── 🏗️ test_elements.py       # Unit-Tests *elements.py* Methods
+    │       ├── 🏗️ test_folders.py        # Unit-Tests *folders.py* Methods
+    │       ├── 🏗️ test_helpers.py        # Unit-Tests *helpers.py* Methods
+    │       ├── 🏗️ test_home.py           # Unit-Tests *home.py* Methods
+    │       ├── 🏗️ test_info.py           # Unit-Tests *info.py* Methods
+    │       ├── 🏗️ test_lists.py          # Unit-Tests *lists.py* Methods
+    │       ├── 🏗️ test_main.py           # Unit-Tests *main.py* Methods
+    │       └── 🏗️ test_welcome.py        # Unit-Tests *welcome.py* Methods
     │
-    ├── 🚫 .gitignore                    # File Ignorati Git Push
-    ├── 🔑 LICENSE                       # Licenza App
-    ├── ✏️ README.md                     # Descrizione Progetto
-    ├── 🔒 requirements_dev.txt          # Requisiti Unit-Tests
-    └── 🔒 requirements.txt              # Requisiti App
+    ├── 🚫 .gitignore                    # Ignore Files on Git Push
+    ├── 🔑 LICENSE                       # App License
+    ├── ✏️ README.md                     # Project Description
+    ├── 🔒 requirements_dev.txt          # Unit-Tests Requirements
+    └── 🔒 requirements.txt              # App Requirements
 ```
 
-## ⬇️ Installazione delle dipendenze
+## ⬇️ Installing App Dependencies
 
-### Prerequisiti
+### Pre-requirements
 
-- Python 3.12.3 (consigliato)
+- Python 3.12.3+ (suggested)
 - pip (package manager)
-- venv (consigliato creare un ambiente virtuale)
+- venv (creating a virtual environment is suggested)
 
-### Setup dipendenze
+### Dependencies Setup
 
-1. **Clona la repository:**
+1. **Clone the repository:**
 
 ```bash
 git clone https://github.com/Dani220406/TO-DO-list.git
 cd TO-DO-list
 ```
 
-2. **Installa le dipendenze:**
+2. **Install dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-*oppure manualmente:*
+*otherwise manually:*
 
 ```bash
 pip install streamlit
 ```
 
-3. **Avvia l'app:**
+3. **Start the App:**
 
 ```bash
 streamlit run app.py
 ```
 
 ## 📝 Unit-Tests
-Abbiamo organizzato gli Unit-Test di tutte le funzioni usate nell'app nella cartella **tests/**. Per poter eseguire i test è necessario:
+We've organized the Unit-Tests of all methods used in the app inside the **tests/** folder. To run the tests it's required: 
 
-1. **Installa le dipendenze:**
+1. **Install dependencies:**
 
 ```bash
 pip install -r requirements_dev.txt
 ```
 
-*oppure manualmente:*
+*otherwise manually:*
 
 ```bash
-pip install pytest pytest-mock pytest-cov pylint
+pip install pytest pytest-mock pytest-cov pylint flake8 mypy black
 ```
 
-2. **Esegui i Test:**
+2. **Run the Tests:**
 
-I test possono essere eseguiti o tutti contemporaneamente o singolarmente:
+The tests can be run all at the same time or each by themselves:
 
-*Contemporaneamente:*
+*All at the Same Time:*
 
 ```bash
 cd TO-DO-list
@@ -141,7 +141,7 @@ pytest tests/
 pytest --cov=tests/
 ```
 
-*Singolarmente:*
+*Each by Themselves:*
 
 ```bash
 cd TO-DO-list
@@ -150,9 +150,9 @@ pytest --cov=tests/test_elements.py
 ...
 ```
 
-🏆 *La code coverage del Progetto raggiunge **~98%** !*
+🏆 *The Project has a code coverage of: **~98%** !*
 
-## 👨‍💻 Autori
+## 👨‍💻 Developers
 
 - **[@Dani220406](https://github.com/Dani220406)**
 - **[@MrMelus](https://github.com/MrMelus)**
@@ -160,4 +160,4 @@ pytest --cov=tests/test_elements.py
 
 ---
 
-🏅 *Progetto realizzato per il corso Quality Development 2025/2026 del DMI UNICT*
+🏅 *Project made for the Quality Development 2025/2026 course of the UNICT DMI*

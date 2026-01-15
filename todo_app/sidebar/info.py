@@ -5,27 +5,27 @@ def info():
     with st.sidebar.expander("ℹ️ Info", expanded=False):
         st.markdown(
             """
-        *Puoi ingrandire la dimensione della sidebar con drag del mouse*
+        *You can adjust the dimensions of the sidebar by dragging the mouse.*
 
         **HOMEPAGE**
-        - **Nuova lista**: Crea una nuova TO-DO list inserendone il nome.
-        - **Elimina lista**: Elimina la TO-DO list selezionata.
-        - **Crea nuova cartella**: Crea una nuova cartella inserendone il nome.
-        - **Gestione cartelle**: Sposta una lista nella cartella selezionata.
-        - **Elimina cartella**: Permette di eliminare la cartella selezionata senza cancellarne le liste contenute.
-        - **Le mie cartelle**: Visualizza le cartelle create con le relative liste inserite al loro interno.
+        - **Create New List**: Creates a new TO-DO List by adding its name.
+        - **Delete List**: Deletes the selected TO-DO List.
+        - **Create New Folder**: Creates a new folder by adding its name.
+        - **Manage Folders**: Moves a TO-DO List into the chosen folder.
+        - **Delete Folder**: Allows to delete the selected folder whilst preserving its contents.
+        - **My Folders**: Shows the created folders alongside its contents.
 
         **LIST-PAGE**
-        - **Torna alla Homepage**: Salva le modifiche applicate alla lista e torna alla homepage.
-        - **Aggiungi elemento**: Aggiunge un nuovo elemento nella lista inserendone il nome.
-        - **Modifica elemento**: Modifica il testo di un elemento nella lista.
-        - **Elimina elemento**: Elimina un elemento selezionato.
-        - **Ordina elemento**: Cambia l'ordine degli elementi nella lista.
-        - **Task completato**: Segna un elemento nella lista come completato.
-        - **Etichetta**: Attribuisce un'etichetta ad un elemento per simboleggiarne la priorità rispetto agli altri.
-        - **Modifica Stile**: Applica Grassetto/Italics/Colore all'elemento selezionato.
+        - **Back to Homepage**: Saves the updated contents of the TO-DO List and returns back to the Homepage.
+        - **Add Element**: Creates a new element in the TO-DO List by adding its name.
+        - **Edit Element**: Allows to edit the text of the selected element.
+        - **Delete Element**: Deletes the selected element.
+        - **Order Elements**: Allows to change the order of elements within the TO-DO List.
+        - **Complete Task**: Marks the selected task as completed.
+        - **Label**: Adds a label to the selected element to simbolize its priority compared to other elements.
+        - **Edit Style**: Allows to add Bold/Italics/Text-Color to the selected element.
 
-        Buon Lavoro 😊!
+        Have Fun 😊!
         """
         )
     st.sidebar.markdown("---")

@@ -10,7 +10,7 @@ from todo_app.sidebar.elements import (
 )
 
 
-# Funzione per creare una nuova lista
+# Method to Create a new List
 def create_new_list():
     with st.sidebar.popover("➕ Nuova lista", use_container_width=True):
         with st.form(key="form_crea_lista", clear_on_submit=True):
@@ -36,7 +36,7 @@ def create_new_list():
 # -------------------------------------------------------------
 
 
-# Funzione per cancellare una lista
+# Method to Delete a List
 def delete_list():
     if not st.session_state.my_lists:
         return
@@ -62,7 +62,7 @@ def delete_list():
 # -------------------------------------------------------------
 
 
-# Funzione per mostrare tutte le liste nella homepage
+# Method to show all lists in the homepage
 def show_lists():
     liste = st.session_state.my_lists
     if not liste:
@@ -88,7 +88,7 @@ def show_lists():
 # -------------------------------------------------------------
 
 
-# Funzione per mostrare una lista selezionata
+# Method to open the selected list
 def show_selected_list():
     nome = st.session_state.active_list
     st.markdown(f"## {nome}")
@@ -105,7 +105,7 @@ def show_selected_list():
 # -------------------------------------------------------------
 
 
-# Sidebar una volta selezionata una lista da guardare
+# Sidebar after having opened a list
 def sidebar_selected_list(nome):
     if st.sidebar.button("⬅️ Torna alla Homepage"):
         st.session_state.active_list = None

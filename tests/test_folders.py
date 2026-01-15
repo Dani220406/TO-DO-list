@@ -8,7 +8,7 @@ from todo_app.sidebar.folders import (
 )
 
 
-# DotDict: dict + accesso tramite attributi
+# DotDict: dict + access with attributes
 class DotDict(dict):
     def __getattr__(self, key):
         try:
@@ -41,7 +41,7 @@ def mock_streamlit(mocker):
     st.sidebar.expander.return_value = cm
     st.form.return_value = cm
 
-    # comportamento UI di default
+    # default UI behavior
     st.form_submit_button.return_value = True
     st.button.return_value = True
     st.text_input.return_value = "Cartella Test"
