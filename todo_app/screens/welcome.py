@@ -6,8 +6,8 @@ def welcome_screen():
     st.markdown(
         """
         <div style="text-align:center; padding-top:30vh;">
-            <h1>Benvenuto</h1>
-            <h3>Quali sono i tuoi piani per oggi?</h3>
+            <h1>Welcome</h1>
+            <h3>What are your plans for today?</h3>
         </div>
         """,
         unsafe_allow_html=True,

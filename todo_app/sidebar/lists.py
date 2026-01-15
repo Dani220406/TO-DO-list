@@ -12,20 +12,20 @@ from todo_app.sidebar.elements import (
 
 # Method to Create a new List
 def create_new_list():
-    with st.sidebar.popover("➕ Nuova lista", use_container_width=True):
+    with st.sidebar.popover("➕ Create New List", use_container_width=True):
         with st.form(key="form_crea_lista", clear_on_submit=True):
-            nome = st.text_input("Nome lista")
-            submit = st.form_submit_button("Crea Lista")
+            nome = st.text_input("List Name")
+            submit = st.form_submit_button("Create List")
 
             if submit:
                 if not nome:
-                    st.error("Il nome della lista non può essere vuoto")
+                    st.error("The name of the list cannot be empty.")
                     return
 
                 nomi_esistenti = [t["nome"] for t in st.session_state.my_lists]
 
                 if nome in nomi_esistenti:
-                    st.warning("Esiste già una lista con questo nome.")
+                    st.warning("A list with this name already exists.")
                 else:
                     st.session_state.my_lists.append(
                         {"nome": nome, "dati": [], "cartella": None}
@@ -41,13 +41,13 @@ def delete_list():
     if not st.session_state.my_lists:
         return
 
-    with st.sidebar.popover("🗑️ Elimina lista", use_container_width=True):
+    with st.sidebar.popover("🗑️ Delete List", use_container_width=True):
         with st.form(key="form_elimina_lista"):
             nomi_liste = [t["nome"] for t in st.session_state.my_lists]
             lista_da_eliminare = st.selectbox(
-                "Seleziona lista", nomi_liste, key="delete_list_select"
+                "Select List", nomi_liste, key="delete_list_select"
             )
-            submit = st.form_submit_button("Elimina Lista")
+            submit = st.form_submit_button("Delete List")
 
             if submit:
                 st.session_state.my_lists = [
@@ -55,7 +55,7 @@ def delete_list():
                     for t in st.session_state.my_lists
                     if t["nome"] != lista_da_eliminare
                 ]
-                st.success(f"Lista '{lista_da_eliminare}' eliminata")
+                st.success(f"List '{lista_da_eliminare}' deleted")
                 st.rerun()
 
 
@@ -66,7 +66,7 @@ def delete_list():
 def show_lists():
     liste = st.session_state.my_lists
     if not liste:
-        st.info("Non hai ancora creato nessuna lista")
+        st.info("No list was yet created.")
         return
 
     CARDS_PER_ROW = 4
@@ -99,7 +99,7 @@ def show_selected_list():
             for idx, item in enumerate(lista["dati"], 1):
                 st.markdown(f"{idx}. {item}")
         else:
-            st.info("Lista vuota, aggiungi un nuovo elemento.")
+            st.info("The list is empty, add a new element.")
 
 
 # -------------------------------------------------------------
@@ -107,7 +107,7 @@ def show_selected_list():
 
 # Sidebar after having opened a list
 def sidebar_selected_list(nome):
-    if st.sidebar.button("⬅️ Torna alla Homepage"):
+    if st.sidebar.button("⬅️ Back to Homepage"):
         st.session_state.active_list = None
         st.rerun()
     add_element()

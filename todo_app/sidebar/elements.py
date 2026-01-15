@@ -26,15 +26,15 @@ def add_element():
     if lista is None:
         return
 
-    with st.sidebar.popover("➕ Aggiungi elemento", use_container_width=True):
+    with st.sidebar.popover("➕ Add Element", use_container_width=True):
         with st.form(key="form_aggiunta", clear_on_submit=True):
-            nuovo_item = st.text_input("Cosa vuoi aggiungere?")
-            if st.form_submit_button("Aggiungi"):
+            nuovo_item = st.text_input("What to add?")
+            if st.form_submit_button("Add Element"):
                 if nuovo_item.strip():
                     lista["dati"].append(nuovo_item.strip())
                     st.rerun()
                 else:
-                    st.error("Nessun elemento inserito.")
+                    st.error("No element added.")
 
 
 # -------------------------------------------------------------
@@ -50,17 +50,17 @@ def remove_element():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("❌ Rimuovi elemento", use_container_width=True):
+    with st.sidebar.popover("❌ Delete Element", use_container_width=True):
         with st.form(key="form_rimozione", clear_on_submit=True):
             elementi = [
                 (parse_styled_text(item)["text"], i)
                 for i, item in enumerate(lista["dati"])
             ]
             scelta, idx = st.selectbox(
-                "Seleziona elemento da rimuovere", elementi, format_func=lambda x: x[0]
+                "Select an element to delete", elementi, format_func=lambda x: x[0]
             )
 
-            if st.form_submit_button("Rimuovi"):
+            if st.form_submit_button("Delete Element"):
                 lista["dati"].pop(idx)
                 st.rerun()
 
@@ -78,7 +78,7 @@ def mark_task_done():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("✅ Segna task completato", use_container_width=True):
+    with st.sidebar.popover("✅ Complete Task", use_container_width=True):
         elementi = [
             (parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])
         ]
@@ -86,16 +86,16 @@ def mark_task_done():
         safe_index("done_idx", len(elementi))
 
         scelta, idx = st.selectbox(
-            "Seleziona task",
+            "Select task",
             elementi,
             index=st.session_state.done_idx,
             format_func=lambda x: x[0],
             key="done_select",
         )
         st.session_state.done_idx = idx
-        st.warning("Confermare un task già completato rimuoverà il checkmark")
+        st.warning("Completing an already completed task will remove its checkmark.")
 
-        if st.button("Completato"):
+        if st.button("Complete"):
             testo = lista["dati"][idx]
             lista["dati"][idx] = toggle_prefix_emoji(testo, "✔️")
             st.rerun()
@@ -114,7 +114,7 @@ def priority_element():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("🏷️ Etichetta", use_container_width=True):
+    with st.sidebar.popover("🏷️ Label", use_container_width=True):
         elementi = [
             (parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])
         ]
@@ -122,16 +122,16 @@ def priority_element():
         safe_index("label_idx", len(elementi))
 
         scelta, idx = st.selectbox(
-            "Seleziona elemento",
+            "Select element",
             elementi,
             index=st.session_state.label_idx,
             format_func=lambda x: x[0],
             key="label_select",
         )
         st.session_state.label_idx = idx
-        st.warning("Etichettare un task già etichettato rimuoverà l'etichetta")
+        st.warning("Labeling an already labeled task will remove its label.")
 
-        if st.button("Etichetta"):
+        if st.button("Label"):
             testo = lista["dati"][idx]
             lista["dati"][idx] = toggle_prefix_emoji(testo, "🏷️")
             st.rerun()
@@ -150,7 +150,7 @@ def edit_style():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("✏️ Modifica stile", use_container_width=True):
+    with st.sidebar.popover("✏️ Edit Style", use_container_width=True):
         elementi = [
             (parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])
         ]
@@ -158,7 +158,7 @@ def edit_style():
         safe_index("style_element_idx", len(elementi))
 
         scelta, idx = st.selectbox(
-            "Seleziona elemento",
+            "Select element",
             elementi,
             index=st.session_state.style_element_idx,
             format_func=lambda x: x[0],
@@ -166,12 +166,12 @@ def edit_style():
         )
         st.session_state.style_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
-        bold_now = st.checkbox("Grassetto", value=current["bold"])
-        italic_now = st.checkbox("Corsivo", value=current["italic"])
+        bold_now = st.checkbox("Bold", value=current["bold"])
+        italic_now = st.checkbox("Italics", value=current["italic"])
 
-        colori = ["nessuno", "red", "green", "blue", "orange", "violet"]
+        colori = ["none", "red", "green", "blue", "orange", "violet"]
         color_now = st.selectbox(
-            "Colore",
+            "Color",
             colori,
             index=colori.index(current["color"]) if current["color"] in colori else 0,
         )
@@ -181,9 +181,9 @@ def edit_style():
             "italic": italic_now,
             "color": color_now,
         }
-        st.markdown(f"**Anteprima:** {build_styled_text(preview)}")
+        st.markdown(f"**Preview:** {build_styled_text(preview)}")
 
-        if st.button("Applica"):
+        if st.button("Apply Edit"):
             lista["dati"][idx] = build_styled_text(preview)
             st.rerun()
 
@@ -201,7 +201,7 @@ def edit_text():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("📝 Modifica elemento", use_container_width=True):
+    with st.sidebar.popover("📝 Edit Element", use_container_width=True):
         elementi = [
             (parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])
         ]
@@ -209,7 +209,7 @@ def edit_text():
         safe_index("edit_element_idx", len(elementi))
 
         scelta, idx = st.selectbox(
-            "Seleziona elemento",
+            "Select element",
             elementi,
             index=st.session_state.edit_element_idx,
             format_func=lambda x: x[0],
@@ -217,9 +217,9 @@ def edit_text():
         )
         st.session_state.edit_element_idx = idx
         current = parse_styled_text(lista["dati"][idx])
-        new_text = st.text_area("Modifica testo", value=current["text"])
+        new_text = st.text_area("Edit text", value=current["text"])
 
-        if st.button("Modifica"):
+        if st.button("Apply Edits"):
             updated = {
                 "text": new_text,
                 "bold": current["bold"],
@@ -243,7 +243,7 @@ def reorder_elements():
     if not lista or not lista["dati"]:
         return
 
-    with st.sidebar.popover("🔀 Ordina elementi", use_container_width=True):
+    with st.sidebar.popover("🔀 Order Elements", use_container_width=True):
         elementi = [
             (parse_styled_text(item)["text"], i) for i, item in enumerate(lista["dati"])
         ]
@@ -251,7 +251,7 @@ def reorder_elements():
         safe_index("reorder_idx", len(elementi))
 
         scelta, idx = st.selectbox(
-            "Seleziona elemento da spostare",
+            "Select an element to reorder",
             elementi,
             index=st.session_state.reorder_idx,
             format_func=lambda x: x[0],
@@ -261,7 +261,7 @@ def reorder_elements():
         col1, col2 = st.columns(2)
 
         with col1:
-            if st.button("⬆️ Su") and idx > 0:
+            if st.button("⬆️ Up") and idx > 0:
                 lista["dati"][idx], lista["dati"][idx - 1] = (
                     lista["dati"][idx - 1],
                     lista["dati"][idx],
@@ -270,7 +270,7 @@ def reorder_elements():
                 st.rerun()
 
         with col2:
-            if st.button("⬇️ Giù") and idx < len(lista["dati"]) - 1:
+            if st.button("⬇️ Down") and idx < len(lista["dati"]) - 1:
                 lista["dati"][idx], lista["dati"][idx + 1] = (
                     lista["dati"][idx + 1],
                     lista["dati"][idx],

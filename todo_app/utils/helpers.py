@@ -30,7 +30,7 @@ def build_styled_text(d):
         t = f"**{t}**"
     if d.get("italic"):
         t = f"*{t}*"
-    if d.get("color") and d["color"] != "nessuno":
+    if d.get("color") and d["color"] != "none":
         t = f":{d['color']}[{t}]"
     return t
 

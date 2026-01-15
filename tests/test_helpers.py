@@ -49,7 +49,7 @@ def test_parse_styled_text(input_text, expected):
             {"text": "ciao", "bold": True, "italic": True, "color": "blue"},
             ":blue[***ciao***]",
         ),
-        ({"text": "ciao", "bold": False, "italic": False, "color": "nessuno"}, "ciao"),
+        ({"text": "ciao", "bold": False, "italic": False, "color": "none"}, "ciao"),
     ],
 )
 def test_build_styled_text(input_dict, expected):
