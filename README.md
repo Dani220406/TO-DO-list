@@ -4,7 +4,7 @@
 
 ## 🌐 Live Demo
 
-Try the Live Demo at: (To-Do-List)[https://to-do-list-unict.streamlit.app/]
+Try the Live Demo at: **[To-Do-List](https://to-do-list-unict.streamlit.app/)**
 
 ## 🔍 How the app works
 
